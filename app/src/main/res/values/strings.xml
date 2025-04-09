@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Filmoteka</string>
 
+    <!-- Labels -->
+    <string name="spinner_status_label">Status</string>
+    <string name="spinner_category_label">Category</string>
+
     <!-- Categories -->
     <string name="category_movie">Movie</string>
     <string name="category_series">Series</string>
