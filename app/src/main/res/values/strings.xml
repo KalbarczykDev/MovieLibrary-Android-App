@@ -9,11 +9,13 @@
     <string name="category_movie">Movie</string>
     <string name="category_series">Series</string>
     <string name="category_documentary">Documentary</string>
+    <string name="category_none">None</string>
     <string name="category_all">All</string>
 
     <!-- Status -->
     <string name="status_watched">Watched</string>
     <string name="status_not_watched">Not watched</string>
+    <string name="status_none">None</string>
     <string name="status_all">All</string>
 
 
@@ -58,5 +60,6 @@
     <string name="movie_title">Movie Title</string>
     <string name="date_placeholder">2000–01–01</string>
     <string name="not_watched">NOT_WATCHED</string>
+    <string name="movie_poster">Movie Poster</string>
 
 </resources>
