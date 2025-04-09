@@ -42,7 +42,7 @@
     <string name="button_save_movie">Save Movie</string>
     <string name="dialog_delete_title">Delete movie</string>
     <string name="dialog_delete_message">Are you sure you want to remove this movie from your collection?</string>
-    <string name="summary_placeholder">Showing 0 movies</string>
+    <string name="summary_placeholder">Showing %1$d movies</string>
 
     <!-- Filter -->
     <string name="filter_category">Category</string>

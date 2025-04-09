@@ -1,54 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="8dp"
-    android:layout_marginHorizontal="12dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="6dp"
-    app:strokeColor="@color/primary"
-    app:strokeWidth="1dp"
-    android:backgroundTint="@color/secondary">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:layout_marginVertical="8dp"
+                                                   android:layout_marginHorizontal="12dp"
+                                                   app:cardCornerRadius="16dp"
+                                                   app:cardElevation="6dp"
+                                                   app:strokeColor="@color/primary"
+                                                   app:strokeWidth="1dp"
+                                                   android:backgroundTint="@color/secondary">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/movie_title"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:maxLines="2"
-            android:ellipsize="end" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
         <TextView
-            android:id="@+id/movie_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/date_placeholder"
-            android:textColor="@color/text"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
+                android:id="@+id/movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/movie_title"
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:maxLines="2"
+                android:ellipsize="end"/>
 
         <TextView
-            android:id="@+id/movie_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/not_watched"
-            android:textColor="@color/primary"
-            android:textStyle="bold"
-            android:backgroundTint="@color/background"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/status_badge"
-            android:textSize="12sp" />
+                android:id="@+id/movie_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_placeholder"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+
+        <TextView
+                android:id="@+id/movie_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_movie"
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:backgroundTint="@color/background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/status_badge"
+                android:textSize="12sp"
+        />
+        <TextView
+                android:id="@+id/movie_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_watched"
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:backgroundTint="@color/background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/status_badge"
+                android:textSize="12sp"/>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -18,11 +18,11 @@ data class Movie(
 )
 
 
-enum class Category(val stringResKey: String) {
-    MOVIE("category_movie"),
-    SERIES("category_series"),
-    DOCUMENTARY("category_documentary"),
-    NONE("category_all")
+enum class Category(@StringRes val stringResId: Int) {
+    MOVIE(R.string.category_movie),
+    SERIES(R.string.category_series),
+    DOCUMENTARY(R.string.category_documentary),
+    NONE(R.string.category_all)
 }
 
 enum class Status(@StringRes val stringResId: Int) {

@@ -2,8 +2,10 @@ package pl.edu.pja.s27773.filmoteka.view.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -46,6 +48,23 @@ class MainActivity : AppCompatActivity() {
         categorySpinner = findViewById(R.id.category_spinner)
         statusSpinner = findViewById(R.id.status_spinner)
         movieRecyclerView = findViewById(R.id.movie_list)
+
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                filterMovies()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        statusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                filterMovies()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
 
         setupSpinners()
         setupRecyclerView()
@@ -93,18 +112,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onAddMovieClick(view: View) {
-        val selectedCategoryKey = categorySpinner.selectedItem as String
-        val selectedStatusKey = statusSpinner.selectedItem as String
 
-        val selectedCategory = categoryMap[selectedCategoryKey] ?: Category.MOVIE
-        val selectedStatus = statusMap[selectedStatusKey] ?: Status.NOT_WATCHED
 
         val dto = MovieDto(
             id = null,
             title = "Test Movie ${System.currentTimeMillis()}",
             releaseDate = LocalDate.now(),
-            category = selectedCategory,
-            status = selectedStatus,
+            category = Category.NONE,
+            status = Status.NOT_WATCHED,
             rating = null,
             comment = null,
             posterUri = null
@@ -114,4 +129,25 @@ class MainActivity : AppCompatActivity() {
 
         movieAdapter.updateData(MovieService.getAll())
     }
+
+    private fun filterMovies() {
+        val selectedCategoryKey = categorySpinner.selectedItem as String
+        val selectedStatusKey = statusSpinner.selectedItem as String
+
+        val selectedCategory = categoryMap[selectedCategoryKey] ?: Category.NONE
+        val selectedStatus = statusMap[selectedStatusKey] ?: Status.NONE
+
+        val allMovies = MovieService.getAll()
+
+        val filteredMovies = allMovies.filter {
+            (selectedCategory == Category.NONE || it.category == selectedCategory) &&
+                    (selectedStatus == Status.NONE || it.status == selectedStatus)
+        }
+
+        movieAdapter.updateData(filteredMovies)
+
+        val summaryText = getString(R.string.summary_placeholder, filteredMovies.size)
+        findViewById<TextView>(R.id.summary_text).text = summaryText
+    }
+
 }

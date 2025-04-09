@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pja.s27773.filmoteka.R
+import pl.edu.pja.s27773.filmoteka.model.Status
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 
 class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -14,6 +16,7 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         val title: TextView = view.findViewById(R.id.movie_title)
         val date: TextView = view.findViewById(R.id.movie_date)
         val status: TextView = view.findViewById(R.id.movie_status)
+        val category: TextView = view.findViewById(R.id.movie_category)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -26,7 +29,16 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         val movie = movies[position]
         holder.title.text = movie.title
         holder.date.text = movie.releaseDate.toString()
+        holder.category.text = holder.itemView.context.getString(movie.category.stringResId)
+
         holder.status.text = holder.itemView.context.getString(movie.status.stringResId)
+        val statusColorRes = if (movie.status == Status.WATCHED) {
+            R.color.status_watched
+        } else {
+            R.color.status_unwatched
+        }
+        holder.status.setBackgroundResource(R.drawable.status_badge)
+        holder.status.backgroundTintList = ContextCompat.getColorStateList(holder.itemView.context, statusColorRes)
     }
 
     override fun getItemCount(): Int = movies.size

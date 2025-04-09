@@ -7,4 +7,6 @@
     <color name="secondary">#3e169c</color>
     <color name="accent">#581aeb</color>
 
+    <color name="status_watched">#0B2E13</color>
+    <color name="status_unwatched">#8E3A44</color>
 </resources>
