@@ -5,10 +5,12 @@
     <string name="category_movie">Movie</string>
     <string name="category_series">Series</string>
     <string name="category_documentary">Documentary</string>
+    <string name="category_all">All</string>
 
     <!-- Status -->
     <string name="status_watched">Watched</string>
     <string name="status_not_watched">Not watched</string>
+    <string name="status_all">All</string>
 
     <!-- Validation Errors -->
     <string name="error_title_blank">Title cannot be blank</string>
@@ -32,10 +34,11 @@
 
 
     <!-- UI -->
-    <string name="button_add">Add</string>
-    <string name="button_save">Save</string>
+    <string name="button_add_movie">Add Movie</string>
+    <string name="button_save_movie">Save Movie</string>
     <string name="dialog_delete_title">Delete movie</string>
     <string name="dialog_delete_message">Are you sure you want to remove this movie from your collection?</string>
+    <string name="summary_placeholder">Showing 0 movies</string>
 
     <!-- Filter -->
     <string name="filter_category">Category</string>
@@ -44,4 +47,5 @@
     <!-- Messages -->
     <string name="no_movies_found">No movies found matching current filters</string>
     <string name="cannot_edit_watched">You cannot edit a movie that has already been marked as watched</string>
+
 </resources>
