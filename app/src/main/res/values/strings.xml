@@ -16,6 +16,10 @@
     <string name="status_not_watched">Not watched</string>
     <string name="status_all">All</string>
 
+
+    <!-- Movie rating -->
+    <string name="movie_not_rated">Not Rated</string>
+
     <!-- Validation Errors -->
     <string name="error_title_blank">Title cannot be blank</string>
     <string name="error_title_to_long">Tittle must be less than 300 characters</string>

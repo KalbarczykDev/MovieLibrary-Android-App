@@ -17,5 +17,5 @@ value class Rating private constructor(val value: Int) {
         }
     }
 
-    override fun toString(): String = "$value/10"
+    override fun toString(): String = "$value"
 }

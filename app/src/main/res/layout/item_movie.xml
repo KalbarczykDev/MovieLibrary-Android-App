@@ -36,34 +36,51 @@
                 android:textColor="@color/text"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"/>
-
-        <TextView
-                android:id="@+id/movie_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category_movie"
-                android:textColor="@color/text"
-                android:textStyle="bold"
-                android:backgroundTint="@color/background"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/status_badge"
-                android:textSize="12sp"
-        />
-        <TextView
-                android:id="@+id/movie_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/not_watched"
-                android:textColor="@color/text"
-                android:textStyle="bold"
-                android:backgroundTint="@color/background"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/status_badge"
-                android:textSize="12sp"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/movie_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_movie"
+                    android:textColor="@color/text"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/background"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/status_badge"
+                    android:textSize="12sp"
+            />
+            <TextView
+                    android:id="@+id/movie_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_watched"
+                    android:textColor="@color/text"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/background"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/status_badge"
+                    android:textSize="12sp"/>
+            <TextView
+                    android:id="@+id/movie_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/movie_not_rated"
+                    android:textColor="@color/text"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/background"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/status_badge"
+                    android:textSize="12sp"/>
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

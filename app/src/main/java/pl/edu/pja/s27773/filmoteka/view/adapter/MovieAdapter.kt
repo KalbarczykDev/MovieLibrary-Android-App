@@ -17,6 +17,7 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         val date: TextView = view.findViewById(R.id.movie_date)
         val status: TextView = view.findViewById(R.id.movie_status)
         val category: TextView = view.findViewById(R.id.movie_category)
+        val rating: TextView = view.findViewById(R.id.movie_rating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -30,6 +31,11 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         holder.title.text = movie.title
         holder.date.text = movie.releaseDate.toString()
         holder.category.text = holder.itemView.context.getString(movie.category.stringResId)
+
+        holder.rating.text = movie.rating?.let { "$it/10" }
+            ?: holder.itemView.context.getString(R.string.movie_not_rated)
+
+
 
         holder.status.text = holder.itemView.context.getString(movie.status.stringResId)
         val statusColorRes = if (movie.status == Status.WATCHED) {
