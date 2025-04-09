@@ -41,10 +41,19 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         holder.posterTitle.text = movie.title
 
 
-        if (movie.posterUri != null) {
-            holder.poster.setImageURI(movie.posterUri)
+        val poster = movie.posterUri
+        if (poster != null) {
+            holder.poster.setImageURI(poster)
+            holder.posterTitle.visibility = View.GONE
         } else {
-            holder.poster.setImageResource(R.drawable.image_placeholder)
+            holder.poster.setImageDrawable(
+                ContextCompat.getDrawable(
+                    holder.itemView.context,
+                    R.drawable.image_placeholder
+                )
+            )
+            holder.posterTitle.text = movie.title
+            holder.posterTitle.visibility = View.VISIBLE
         }
 
 
