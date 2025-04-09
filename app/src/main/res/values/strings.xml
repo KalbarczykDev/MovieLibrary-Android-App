@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Filmoteka</string>
+
+    <!-- Categories -->
+    <string name="category_movie">Movie</string>
+    <string name="category_series">Series</string>
+    <string name="category_documentary">Documentary</string>
+
+    <!-- Status -->
+    <string name="status_watched">Watched</string>
+    <string name="status_not_watched">Not watched</string>
+
+    <!-- Validation Errors -->
+    <string name="error_title_blank">Title cannot be blank</string>
+    <string name="error_title_to_long">Tittle must be less than 300 characters</string>
+    <string name="error_comment_too_long">Comment is too long</string>
+    <string name="error_rating_invalid">Rating must be between 1 and 10</string>
+    <string name="error_release_date_future">Release date cannot be more than 2 years in the future</string>
+    <string name="error_movie_exists">A movie with this ID already exists</string>
+    <string name="error_rating_required">Rating is required for watched movies</string>
+    <string name="error_category_required">Category must be selected</string>
+    <string name="error_poster_required">You must select a poster from the gallery</string>
+    <string name="unknown_error">Something went wrong</string>
+    <string name="error_id_invalid">ID must be greater than 0</string>
+
+
+    <!-- UI -->
+    <string name="button_add">Add</string>
+    <string name="button_save">Save</string>
+    <string name="dialog_delete_title">Delete movie</string>
+    <string name="dialog_delete_message">Are you sure you want to remove this movie from your collection?</string>
+
+    <!-- Filter -->
+    <string name="filter_category">Category</string>
+    <string name="filter_status">Status</string>
+
+    <!-- Messages -->
+    <string name="no_movies_found">No movies found matching current filters</string>
+    <string name="cannot_edit_watched">You cannot edit a movie that has already been marked as watched</string>
+</resources>
