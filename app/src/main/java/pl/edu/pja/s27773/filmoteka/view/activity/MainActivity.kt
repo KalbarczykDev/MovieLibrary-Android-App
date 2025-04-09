@@ -11,7 +11,6 @@ import pl.edu.pja.s27773.filmoteka.R
 import pl.edu.pja.s27773.filmoteka.model.Category
 import pl.edu.pja.s27773.filmoteka.model.Status
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
-import pl.edu.pja.s27773.filmoteka.seed.MovieSeeder
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import pl.edu.pja.s27773.filmoteka.view.adapter.MovieAdapter
 import java.time.LocalDate
@@ -29,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         categorySpinner = findViewById(R.id.category_spinner)
         statusSpinner = findViewById(R.id.status_spinner)
@@ -51,10 +52,10 @@ class MainActivity : AppCompatActivity() {
 
         val categoryAdapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             categoryMap.keys.toList()
         )
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_item)
         categorySpinner.adapter = categoryAdapter
 
         // Map Status enum to string resources
@@ -66,10 +67,10 @@ class MainActivity : AppCompatActivity() {
 
         val statusAdapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             statusMap.keys.toList()
         )
-        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        statusAdapter.setDropDownViewResource(R.layout.spinner_item)
         statusSpinner.adapter = statusAdapter
     }
 

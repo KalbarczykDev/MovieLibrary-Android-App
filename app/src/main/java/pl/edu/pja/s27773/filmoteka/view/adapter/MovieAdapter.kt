@@ -26,7 +26,7 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         val movie = movies[position]
         holder.title.text = movie.title
         holder.date.text = movie.releaseDate.toString()
-        holder.status.text = movie.status.name
+        holder.status.text = holder.itemView.context.getString(movie.status.stringResId)
     }
 
     override fun getItemCount(): Int = movies.size

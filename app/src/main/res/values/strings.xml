@@ -48,7 +48,7 @@
     <string name="no_movies_found">No movies found matching current filters</string>
     <string name="cannot_edit_watched">You cannot edit a movie that has already been marked as watched</string>
     <string name="movie_title">Movie Title</string>
-    <string name="date_placeholder">2000-01-01</string>
+    <string name="date_placeholder">2000–01–01</string>
     <string name="not_watched">NOT_WATCHED</string>
 
 </resources>

@@ -1,98 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"
-        tools:context=".view.activity.MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".view.activity.MainActivity">
 
     <!-- Logo -->
-
-    <!-- Category Filter -->
     <ImageView
-            android:id="@+id/logo"
-            android:layout_width="38dp"
-            android:layout_height="39dp"
-            android:src="@drawable/ic_movie_logo"
-            android:contentDescription="@string/app_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp" app:layout_constraintHorizontal_bias="0.046"/>
-    <Spinner
-            android:id="@+id/category_spinner"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:minHeight="48dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:popupBackground="@color/surface"
-            app:layout_constraintTop_toBottomOf="@id/logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/status_spinner"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="16dp"/>
+        android:id="@+id/logo"
+        android:layout_width="38dp"
+        android:layout_height="39dp"
+        android:src="@drawable/ic_movie_logo"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.046" />
 
-    <!-- Status Filter -->
-    <Spinner
-            android:id="@+id/status_spinner"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:minHeight="48dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:popupBackground="@color/surface"
-            app:layout_constraintTop_toBottomOf="@id/logo"
-            app:layout_constraintStart_toEndOf="@+id/category_spinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"/>
-
-    <!-- Summary Text -->
+    <!-- App Name -->
     <TextView
-            android:id="@+id/summary_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/summary_placeholder"
-            android:textSize="14sp"
-            android:textColor="@color/textPrimary"
-            android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toBottomOf="@id/category_spinner"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"/>
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toEndOf="@id/logo" />
 
-    <!-- Movie List -->
+    <!-- Status Spinner -->
+    <Spinner
+        android:id="@+id/status_spinner"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/accent"
+        android:popupBackground="@color/secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Category Spinner -->
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/accent"
+        android:popupBackground="@color/secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_spinner" />
+
+    <!-- Summary -->
+    <TextView
+        android:id="@+id/summary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/summary_placeholder"
+        android:textSize="14sp"
+        android:textColor="@color/text"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movie_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingBottom="80dp"
-            android:overScrollMode="ifContentScrolls"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/summary_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginHorizontal="8dp"/>
+        android:id="@+id/movie_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        android:overScrollMode="ifContentScrolls"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/summary_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="8dp" />
 
-    <!-- Add Movie Button -->
+    <!-- FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ic_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/button_add_movie"
-            android:src="@drawable/ic_add"
-            android:tint="@color/buttonText"
-            android:onClick="onAddMovieClick"
-            app:backgroundTint="@color/buttonBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="20dp"/>
+        android:id="@+id/ic_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/button_add_movie"
+        android:src="@drawable/ic_add"
+        android:onClick="onAddMovieClick"
+        android:tint="@color/text"
+        app:backgroundTint="@color/accent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

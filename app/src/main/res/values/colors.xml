@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary brand colors -->
-    <color name="colorPrimary">#673AB7</color> <!-- Deep Purple -->
-    <color name="colorPrimaryDark">#512DA8</color>
-    <color name="colorAccent">#FF4081</color> <!-- Pink Accent -->
 
-    <!-- Backgrounds -->
-    <color name="background">#FAFAFA</color> <!-- Light Gray background -->
-    <color name="surface">#FFFFFF</color> <!-- Pure white for cards/views -->
+    <color name="text">#ede8f7</color>
+    <color name="background">#040209</color>
+    <color name="primary">#a589e7</color>
+    <color name="secondary">#3e169c</color>
+    <color name="accent">#581aeb</color>
 
-    <!-- Text Colors -->
-    <color name="textPrimary">#212121</color> <!-- Dark gray -->
-    <color name="textSecondary">#757575</color> <!-- Medium gray -->
-    <color name="textDisabled">#BDBDBD</color> <!-- Light gray -->
-
-    <!-- UI Elements -->
-    <color name="divider">#E0E0E0</color>
-    <color name="iconTint">#616161</color>
-
-    <!-- Status Colors -->
-    <color name="watched">#4CAF50</color> <!-- Green -->
-    <color name="not_watched">#F44336</color> <!-- Red -->
-    <color name="highlight">#FFEB3B</color> <!-- Yellow -->
-
-    <!-- Overlay & Shadows -->
-    <color name="overlay">#80000000</color> <!-- 50% Black -->
-    <color name="elevation">#1F000000</color> <!-- Subtle black -->
-
-    <!-- Buttons -->
-    <color name="buttonBackground">#3F51B5</color> <!-- Indigo -->
-    <color name="buttonText">#FFFFFF</color>
 </resources>
