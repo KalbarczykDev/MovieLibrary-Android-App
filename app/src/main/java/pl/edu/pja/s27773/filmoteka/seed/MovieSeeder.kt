@@ -8,6 +8,8 @@ import java.time.LocalDate
 object MovieSeeder {
 
     fun seed() {
+        MovieRepository.clear()
+
         val movies = listOf(
             Movie(
                 nextId(), Title.of("Inception"), ReleaseDate.of(LocalDate.of(2010, 7, 16)),
