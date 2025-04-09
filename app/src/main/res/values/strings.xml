@@ -23,6 +23,13 @@
     <string name="unknown_error">Something went wrong</string>
     <string name="error_id_invalid">ID must be greater than 0</string>
 
+    <!-- Movie Crud Errors -->
+    <string name="error_movie_id_taken">Movie with this ID already exists</string>
+    <string name="error_movie_create">Error creating movie</string>
+    <string name="error_movie_update">Error updating movie</string>
+    <string name="error_movie_delete">Error deleting movie</string>
+    <string name="error_movie_not_found">Movie not found</string>
+
 
     <!-- UI -->
     <string name="button_add">Add</string>

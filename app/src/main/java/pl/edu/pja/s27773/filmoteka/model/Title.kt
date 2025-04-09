@@ -1,7 +1,7 @@
 package pl.edu.pja.s27773.filmoteka.model
 
 import pl.edu.pja.s27773.filmoteka.error.TitleError
-import pl.edu.pja.s27773.filmoteka.error.ValidationError
+import pl.edu.pja.s27773.filmoteka.error.AppError
 
 @JvmInline
 value class Title private constructor(val value: String) {
@@ -16,7 +16,7 @@ value class Title private constructor(val value: String) {
 
         fun of(value: String): Title {
             val error = validate(value)
-            require(error == null) { error?.stringResKey ?: ValidationError.DEFAULT }
+            require(error == null) { error?.stringResKey ?: AppError.DEFAULT }
             return Title(value.trim())
         }
     }

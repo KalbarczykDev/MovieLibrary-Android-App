@@ -1,35 +1,18 @@
 package pl.edu.pja.s27773.filmoteka.repository
 
+import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.*
-import java.time.LocalDate
 
-//object to singleton
+//sugar code dla  singletona
 object MovieRepository {
     private val movies = mutableListOf<Movie>()
 
-    fun loadSampleData() {
-        movies.clear()
-        movies.addAll(
-            listOf(
-                Movie(
-                    Id.of(1), Title.of("Incepcja"), ReleaseDate.of(LocalDate.of(2010, 7, 16)),
-                    Category.MOVIE, Status.WATCHED, Rating.of(9), Comment.of("Mega!"), null
-                ),
-                Movie(
-                    Id.of(2), Title.of("Planet Earth"), ReleaseDate.of(LocalDate.of(2006, 3, 5)),
-                    Category.DOCUMENTARY, Status.NOT_WATCHED, null, null, null
-                )
-            )
-        )
-    }
+    fun getAll(): List<Movie> = movies.toList()//immutable list
 
-    fun add(movie: Movie) {
-        require(movies.none { it.id == movie.id }) { "Movie with this ID already exists." }
+    fun add(movie: Movie): MovieCrudError? {
+        if (movies.any { it.id == movie.id }) return MovieCrudError.ID_TAKEN
         movies.add(movie)
-    }
-
-    fun remove(movie: Movie) {
-        movies.removeIf { it.id == movie.id }
+        return null
     }
 
     fun nextId(): Id {
@@ -37,5 +20,33 @@ object MovieRepository {
         return Id.of(maxId + 1)
     }
 
-    fun getAll(): List<Movie> = movies.toList()
+    fun update(updated: Movie): MovieCrudError? {
+        val index = movies.indexOfFirst { it.id == updated.id }
+        return if (index == -1) {
+            MovieCrudError.NOT_FOUND
+        } else {
+            movies[index] = updated
+            null
+        }
+    }
+
+    fun deleteById(id: Id): MovieCrudError? {
+        val removed = movies.removeIf { it.id == id }
+        return if (!removed) MovieCrudError.NOT_FOUND else null
+    }
+
+    fun addAll(newMovies: List<Movie>): MovieCrudError? {
+        newMovies.forEach {
+            val error = add(it)
+            if (error != null) return error
+        }
+        return null
+    }
+
+    fun clear() {
+        movies.clear()
+    }
+
 }
+
+

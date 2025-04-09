@@ -1,7 +1,7 @@
 package pl.edu.pja.s27773.filmoteka.model
 
 import pl.edu.pja.s27773.filmoteka.error.RatingError
-import pl.edu.pja.s27773.filmoteka.error.ValidationError
+import pl.edu.pja.s27773.filmoteka.error.AppError
 
 @JvmInline
 value class Rating private constructor(val value: Int) {
@@ -12,7 +12,7 @@ value class Rating private constructor(val value: Int) {
 
         fun of(value: Int): Rating {
             val error = validate(value)
-            require(error == null) { error?.stringResKey ?: ValidationError.DEFAULT }
+            require(error == null) { error?.stringResKey ?: AppError.DEFAULT }
             return Rating(value)
         }
     }

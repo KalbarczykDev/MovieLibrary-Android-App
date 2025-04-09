@@ -1,7 +1,7 @@
 package pl.edu.pja.s27773.filmoteka.model
 
 import pl.edu.pja.s27773.filmoteka.error.CommentError
-import pl.edu.pja.s27773.filmoteka.error.ValidationError
+import pl.edu.pja.s27773.filmoteka.error.AppError
 
 @JvmInline
 value class Comment private constructor(val value: String) {
@@ -16,7 +16,7 @@ value class Comment private constructor(val value: String) {
 
         fun of(value: String): Comment {
             val error = validate(value)
-            require(error == null) { error?.stringResKey ?: ValidationError.DEFAULT }
+            require(error == null) { error?.stringResKey ?: AppError.DEFAULT }
             return Comment(value.trim())
         }
     }
