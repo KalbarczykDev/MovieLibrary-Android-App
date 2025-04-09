@@ -1,6 +1,7 @@
 package pl.edu.pja.s27773.filmoteka.model
 
 import android.net.Uri
+import java.time.LocalDate
 
 // data class = javowy record?
 data class Movie(
@@ -13,6 +14,8 @@ data class Movie(
     var comment: Comment? = null,
     var posterUri: Uri? = null
 )
+
+
 
 enum class Category {
     MOVIE, SERIES, DOCUMENTARY, OTHER

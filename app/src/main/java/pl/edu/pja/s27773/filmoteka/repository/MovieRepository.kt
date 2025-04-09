@@ -30,8 +30,8 @@ object MovieRepository {
         }
     }
 
-    fun deleteById(id: Id): MovieCrudError? {
-        val removed = movies.removeIf { it.id == id }
+    fun delete(movie: Movie): MovieCrudError? {
+        val removed = movies.removeIf { it.id == movie.id }
         return if (!removed) MovieCrudError.NOT_FOUND else null
     }
 
