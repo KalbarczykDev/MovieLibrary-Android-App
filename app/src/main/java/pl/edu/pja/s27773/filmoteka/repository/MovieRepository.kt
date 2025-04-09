@@ -7,7 +7,9 @@ import pl.edu.pja.s27773.filmoteka.model.*
 object MovieRepository {
     private val movies = mutableListOf<Movie>()
 
-    fun getAll(): List<Movie> = movies.toList()//immutable list
+    fun getAll(): List<Movie> {
+        return movies.toList()
+    } //immutable list
 
     fun add(movie: Movie): MovieCrudError? {
         if (movies.any { it.id == movie.id }) return MovieCrudError.ID_TAKEN
