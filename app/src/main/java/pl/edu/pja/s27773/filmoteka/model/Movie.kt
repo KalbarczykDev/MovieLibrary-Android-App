@@ -18,11 +18,11 @@ data class Movie(
 
 
 enum class Category {
-    MOVIE, SERIES, DOCUMENTARY, OTHER
+    MOVIE, SERIES, DOCUMENTARY, NONE
 }
 
 enum class Status {
-    WATCHED, NOT_WATCHED
+    WATCHED, NOT_WATCHED, NONE
 }
 
 
