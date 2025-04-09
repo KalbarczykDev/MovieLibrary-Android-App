@@ -1,4 +1,4 @@
-package pl.edu.pja.s27773.filmoteka.view
+package pl.edu.pja.s27773.filmoteka.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
