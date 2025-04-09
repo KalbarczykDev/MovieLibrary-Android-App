@@ -3,7 +3,7 @@ package pl.edu.pja.s27773.filmoteka.service
 import pl.edu.pja.s27773.filmoteka.model.*
 import pl.edu.pja.s27773.filmoteka.repository.MovieRepository
 
-class MovieService {
+object MovieService {
 
     data class Filter(val category: Category? = null, val status: Status? = null)
 

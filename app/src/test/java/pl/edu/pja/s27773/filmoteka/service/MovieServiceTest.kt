@@ -10,28 +10,24 @@ import java.time.LocalDate
 
 class MovieServiceTest {
 
-    private lateinit var service: MovieService
     private lateinit var movie: Movie
-    private lateinit var seeder: MovieSeeder
 
     @BeforeEach
     fun setUp() {
-        service = MovieService()
-        seeder = MovieSeeder
-        seeder.seed()
+        MovieSeeder.seed()
         movie = MovieRepository.getAll().first()
     }
 
     @Test
     fun `should return filtered and sorted movies`() {
-        val result = service.getFilteredAndSorted(MovieService.Filter(category = Category.MOVIE))
+        val result = MovieService.getFilteredAndSorted(MovieService.Filter(category = Category.MOVIE))
         assertTrue(result.all { it.category == Category.MOVIE })
         assertTrue(result.zipWithNext().all { it.first.releaseDate.toString() <= it.second.releaseDate.toString() })
     }
 
     @Test
     fun `should return correct summary count`() {
-        val count = service.getSummaryCount(MovieService.Filter(status = Status.WATCHED))
+        val count = MovieService.getSummaryCount(MovieService.Filter(status = Status.WATCHED))
         assertEquals(1, count)
     }
 
@@ -57,30 +53,30 @@ class MovieServiceTest {
         MovieRepository.add(notWatched)
 
         // Act & Assert
-        assertFalse(service.onMovieClick(watched))      // can't edit watched
-        assertTrue(service.onMovieClick(notWatched))    // can edit not watched
+        assertFalse(MovieService.onMovieClick(watched))      // can't edit watched
+        assertTrue(MovieService.onMovieClick(notWatched))    // can edit not watched
     }
 
 
     @Test
     fun `should add and delete a movie`() {
-        val newMovie = movie.copy(id = service.getNextId(), title = Title.of("Test Movie"), status = Status.NOT_WATCHED)
-        assertTrue(service.addMovie(newMovie))
-        assertTrue(service.deleteMovieById(newMovie.id))
+        val newMovie = movie.copy(id = MovieService.getNextId(), title = Title.of("Test Movie"), status = Status.NOT_WATCHED)
+        assertTrue(MovieService.addMovie(newMovie))
+        assertTrue(MovieService.deleteMovieById(newMovie.id))
     }
 
     @Test
     fun `should update a movie`() {
         val updated = movie.copy(comment = Comment.of("Updated"))
-        assertTrue(service.updateMovie(updated))
+        assertTrue(MovieService.updateMovie(updated))
         assertEquals("Updated", MovieRepository.getAll().first { it.id == movie.id }.comment.toString())
     }
 
     @Test
     fun `should return next unique id`() {
-        val id1 = service.getNextId()
-        service.addMovie(movie.copy(id = id1))
-        val id2 = service.getNextId()
+        val id1 = MovieService.getNextId()
+        MovieService.addMovie(movie.copy(id = id1))
+        val id2 = MovieService.getNextId()
         assertTrue(id2.toString().toInt() > id1.toString().toInt())
     }
 }
