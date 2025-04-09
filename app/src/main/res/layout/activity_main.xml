@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical" tools:ignore="UseCompoundDrawables">
 
             <ImageView
                     android:id="@+id/logo"
@@ -46,6 +46,19 @@
                     android:textStyle="bold"
                     android:layout_marginStart="12dp"/>
         </LinearLayout>
+
+        <ImageButton
+                android:id="@+id/filter_toggle_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_expand_more"
+                android:contentDescription="@string/filter_toggle"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/text"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                android:layout_gravity="end"/>
+
     </androidx.cardview.widget.CardView>
 
     <!-- Filters Row -->
@@ -62,92 +75,101 @@
             android:layout_marginEnd="8dp">
 
         <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp"
-                android:gravity="center_vertical"
-                android:weightSum="2">
-
+                android:layout_height="match_parent">
             <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:weightSum="2">
 
-                <TextView
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="@string/filter_status"
-                        android:textColor="@color/text"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="4dp"/>
+                        android:orientation="vertical">
 
-                <Spinner
-                        android:id="@+id/status_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:backgroundTint="@color/accent"
-                        android:popupBackground="@color/secondary"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filter_status"
+                            android:textColor="@color/text"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="4dp"/>
+
+                    <Spinner
+                            android:id="@+id/status_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:backgroundTint="@color/accent"
+                            android:popupBackground="@color/secondary"/>
+                </LinearLayout>
+
+                <View
+                        android:layout_width="12dp"
+                        android:layout_height="1dp"/>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filter_category"
+                            android:textColor="@color/text"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="4dp"/>
+
+                    <Spinner
+                            android:id="@+id/category_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:backgroundTint="@color/accent"
+                            android:popupBackground="@color/secondary"/>
+                </LinearLayout>
+
+                <!-- Summary Text -->
             </LinearLayout>
-
-            <View
-                    android:layout_width="12dp"
-                    android:layout_height="1dp"/>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+            <TextView
+                    android:id="@+id/summary_text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/filter_category"
-                        android:textColor="@color/text"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="4dp"/>
-
-                <Spinner
-                        android:id="@+id/category_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:backgroundTint="@color/accent"
-                        android:popupBackground="@color/secondary"/>
-            </LinearLayout>
+                    android:text="@string/summary_placeholder"
+                    android:textSize="14sp"
+                    android:textColor="@color/text"
+                    android:fontFamily="sans-serif-medium"
+                    app:layout_constraintTop_toBottomOf="@+id/filter_card"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"/>
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
 
-    <!-- Summary Text -->
-    <TextView
-            android:id="@+id/summary_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/summary_placeholder"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toBottomOf="@+id/filter_card" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
 
     <!-- Movie List -->
 
 
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ic_add"
+            android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/button_add_movie"
             android:src="@drawable/add"
-            android:onClick="onAddMovieClick"
             android:tint="@color/text"
             app:backgroundTint="@color/accent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp" tools:ignore="ImageContrastCheck"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_list"
             android:layout_width="0dp"
@@ -158,8 +180,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_marginHorizontal="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/summary_text"
-            android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-    />
+            app:layout_constraintTop_toBottomOf="@+id/filter_card"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,13 @@
     <string name="status_all">All</string>
 
 
+    <!-- Delete -->
+    <string name="confirm_delete_title">Delete Movie</string>
+    <string name="confirm_delete_message">Are you sure you want to delete "%1$s" from your collection?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+
     <!-- Movie rating -->
     <string name="movie_not_rated">Not Rated</string>
 
@@ -61,5 +68,6 @@
     <string name="date_placeholder">2000–01–01</string>
     <string name="not_watched">NOT_WATCHED</string>
     <string name="movie_poster">Movie Poster</string>
+    <string name="filter_toggle">Toggle</string>
 
 </resources>

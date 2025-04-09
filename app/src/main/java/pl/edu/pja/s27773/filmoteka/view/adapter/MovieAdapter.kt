@@ -26,6 +26,8 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
 
     }
 
+    var onLongClick: ((MovieDto) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
@@ -79,6 +81,11 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
 
         holder.status.setBackgroundResource(R.drawable.status_badge)
         holder.status.backgroundTintList = ContextCompat.getColorStateList(holder.itemView.context, statusColorRes)
+
+        holder.itemView.setOnLongClickListener {
+            onLongClick?.invoke(movie)
+            true
+        }
 
 
     }
