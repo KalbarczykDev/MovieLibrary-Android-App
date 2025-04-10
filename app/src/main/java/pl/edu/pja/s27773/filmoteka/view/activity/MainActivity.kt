@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var categoryMap: Map<String, Category>
     private lateinit var statusMap: Map<String, Status>
+    private lateinit var addMovieLauncher: ActivityResultLauncher<Intent>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,12 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupSpinnerListeners()
         setUpButtons()
+
+        addMovieLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                filterMovies()
+            }
+        }
 
         filterMovies()
     }
@@ -66,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         statusSpinner = findViewById(R.id.status_spinner)
         movieRecyclerView = findViewById(R.id.movie_list)
         summaryTextView = findViewById(R.id.summary_text)
-        filterCard = findViewById(R.id.filter_card)
+        filterCard = findViewById(R.id.add_movie_card)
         filterToggleButton = findViewById(R.id.filter_toggle_button)
 
         filterCard.visibility = View.GONE
@@ -176,7 +186,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onAddMovieClick() {
-        startActivity(Intent(this, AddMovieActivity::class.java))
+        val intent = Intent(this, AddMovieActivity::class.java)
+        addMovieLauncher.launch(intent)
     }
 
 

@@ -1,5 +1,6 @@
 package pl.edu.pja.s27773.filmoteka.repository
 
+import android.util.Log
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.*
 
@@ -15,10 +16,9 @@ object MovieRepository {
         return movies.find { it.id == id }
     }
 
-    fun add(movie: Movie): MovieCrudError? {
-        if (movies.any { it.id == movie.id }) return MovieCrudError.ID_TAKEN
+    fun add(movie: Movie) {
+        if (movies.any { it.id == movie.id }) throw IllegalArgumentException(MovieCrudError.ID_TAKEN.stringResKey)
         movies.add(movie)
-        return null
     }
 
     fun nextId(): Id {
@@ -26,28 +26,29 @@ object MovieRepository {
         return Id.of(maxId + 1)
     }
 
-    fun update(updated: Movie): MovieCrudError? {
+    fun update(updated: Movie) {
         val index = movies.indexOfFirst { it.id == updated.id }
-        return if (index == -1) {
-            MovieCrudError.NOT_FOUND
+        if (index == -1) {
+            throw IllegalArgumentException(MovieCrudError.NOT_FOUND.stringResKey)
         } else {
             movies[index] = updated
-            null
         }
     }
 
-    fun delete(movie: Movie): MovieCrudError? {
+    fun delete(movie: Movie) {
         val removed = movies.removeIf { it.id == movie.id }
-        return if (!removed) MovieCrudError.NOT_FOUND else null
+        if (!removed) throw IllegalArgumentException(MovieCrudError.NOT_FOUND.stringResKey)
     }
 
-    fun addAll(newMovies: List<Movie>): MovieCrudError? {
-        newMovies.forEach {
-            val error = add(it)
-            if (error != null) return error
+    fun addAll(newMovies: List<Movie>) {
+    newMovies.forEach {
+        try {
+            add(it)
+        } catch (e: IllegalArgumentException) {
+            Log.e("MovieRepository", "Error adding movie: ${e.message}")
         }
-        return null
     }
+}
 
     fun clear() {
         movies.clear()

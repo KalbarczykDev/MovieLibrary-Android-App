@@ -1,5 +1,6 @@
 package pl.edu.pja.s27773.filmoteka.service
 
+import android.util.Log
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.repository.MovieRepository
@@ -19,16 +20,16 @@ object MovieService {
         return MovieRepository.getById(Id.of(id))?.toDto()
     }
 
-    fun add(dto: MovieDto): MovieCrudError? {
-        return MovieRepository.add(dto.toDomain())
+    fun add(dto: MovieDto) {
+        MovieRepository.add(dto.toDomain())
     }
 
-    fun delete(dto: MovieDto): MovieCrudError? {
-        return MovieRepository.delete(dto.toDomain())
+    fun delete(dto: MovieDto){
+         MovieRepository.delete(dto.toDomain())
     }
 
-    fun update(dto: MovieDto): MovieCrudError? {
-        return MovieRepository.update(dto.toDomain())
+    fun update(dto: MovieDto) {
+         MovieRepository.update(dto.toDomain())
     }
 
 }
