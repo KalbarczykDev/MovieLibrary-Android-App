@@ -62,6 +62,7 @@
     <string name="filter_status">Status</string>
 
     <!-- Messages -->
+    <string name="movie_added">Movie added successfully</string>
     <string name="no_movies_found">No movies found matching current filters</string>
     <string name="cannot_edit_watched">You cannot edit a movie that has already been marked as watched</string>
     <string name="movie_title">Movie Title</string>
@@ -69,5 +70,9 @@
     <string name="not_watched">NOT_WATCHED</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="filter_toggle">Toggle</string>
+    <string name="choose_poster">Choose Poster</string>
+    <string name="save">Save</string>
+    <string name="comment">Comment</string>
+    <string name="movie_premiere_date">"Premiere Date "</string>
 
 </resources>

@@ -93,7 +93,7 @@ class AddMovieActivity : AppCompatActivity() {
 
         try {
             MovieService.add(dto)
-            Toast.makeText(this, "@string/", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.movie_added), Toast.LENGTH_SHORT).show()
             setResult(RESULT_OK)
             finish()
         } catch (e: Exception) {
