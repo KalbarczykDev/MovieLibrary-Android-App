@@ -1,5 +1,6 @@
 package pl.edu.pja.s27773.filmoteka.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -139,6 +140,20 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(R.string.cancel, null)
                 .show()
         }
+
+        movieAdapter.onClick = { movie ->
+            movie.id?.let { movieId ->
+                val intent = Intent(
+                    this,
+                    if (movie.status == Status.NOT_WATCHED) EditMovieActivity::class.java
+                    else PreviewMovieActivity::class.java
+                )
+                intent.putExtra("movie_id", movieId.toLong())
+                startActivity(intent)
+            }
+        }
+
+
     }
 
     private fun filterMovies() {
@@ -175,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         MovieService.add(newMovie)
-       filterMovies()
+        filterMovies()
     }
 
 

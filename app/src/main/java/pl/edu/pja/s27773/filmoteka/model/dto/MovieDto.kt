@@ -5,7 +5,7 @@ import pl.edu.pja.s27773.filmoteka.model.Category
 import pl.edu.pja.s27773.filmoteka.model.Status
 import java.time.LocalDate
 
-data class MovieDto(
+data class MovieDto (
     val id: Int?, // null if new
     val title: String,
     val releaseDate: LocalDate,

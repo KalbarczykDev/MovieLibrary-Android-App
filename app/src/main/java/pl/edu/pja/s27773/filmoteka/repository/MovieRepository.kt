@@ -11,6 +11,10 @@ object MovieRepository {
         return movies.toList()
     } //immutable list
 
+    fun getById(id: Id): Movie? {
+        return movies.find { it.id == id }
+    }
+
     fun add(movie: Movie): MovieCrudError? {
         if (movies.any { it.id == movie.id }) return MovieCrudError.ID_TAKEN
         movies.add(movie)

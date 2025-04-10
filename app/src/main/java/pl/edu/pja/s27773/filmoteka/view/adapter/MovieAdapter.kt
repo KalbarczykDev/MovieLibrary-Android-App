@@ -12,7 +12,12 @@ import pl.edu.pja.s27773.filmoteka.R
 import pl.edu.pja.s27773.filmoteka.model.Status
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 
-class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(
+    private var movies: List<MovieDto>
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
+    var onLongClick: ((MovieDto) -> Unit)? = null
+    var onClick: ((MovieDto) -> Unit)? = null
 
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.movie_title)
@@ -23,10 +28,14 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
         val poster: ImageView = view.findViewById(R.id.movie_poster)
         val posterTitle: TextView = view.findViewById(R.id.movie_poster_title)
 
-
+        init {
+            view.setOnClickListener { onClick?.invoke(movies[adapterPosition]) }
+            view.setOnLongClickListener {
+                onLongClick?.invoke(movies[adapterPosition])
+                true
+            }
+        }
     }
-
-    var onLongClick: ((MovieDto) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -37,61 +46,43 @@ class MovieAdapter(private var movies: List<MovieDto>) : RecyclerView.Adapter<Mo
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
+        val context = holder.itemView.context
+
         holder.title.text = movie.title
         holder.date.text = movie.releaseDate.toString()
-        holder.category.text = holder.itemView.context.getString(movie.category.stringResId)
+        holder.category.text = context.getString(movie.category.stringResId)
         holder.posterTitle.text = movie.title
 
-
-        val poster = movie.posterUri
-        if (poster != null) {
-            holder.poster.setImageURI(poster)
+        // Poster or placeholder
+        if (movie.posterUri != null) {
+            holder.poster.setImageURI(movie.posterUri)
             holder.posterTitle.visibility = View.GONE
         } else {
-            holder.poster.setImageDrawable(
-                ContextCompat.getDrawable(
-                    holder.itemView.context,
-                    R.drawable.image_placeholder
-                )
-            )
-            holder.posterTitle.text = movie.title
+            holder.poster.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
             holder.posterTitle.visibility = View.VISIBLE
         }
 
+        // Status
+        holder.status.text = context.getString(movie.status.stringResId)
+        holder.status.setBackgroundResource(R.drawable.status_badge)
+        holder.status.backgroundTintList = ContextCompat.getColorStateList(
+            context,
+            if (movie.status == Status.WATCHED) R.color.status_watched else R.color.status_unwatched
+        )
+        holder.status.visibility = if (movie.status == Status.NOT_WATCHED) View.GONE else View.VISIBLE
 
-        holder.status.text = holder.itemView.context.getString(movie.status.stringResId)
-        val statusColorRes = if (movie.status == Status.WATCHED) {
-            R.color.status_watched
-        } else {
-            R.color.status_unwatched
-        }
-
-        if (movie.status == Status.NOT_WATCHED) {
-            holder.status.visibility = View.GONE
-        } else {
-            holder.status.visibility = View.VISIBLE
-        }
-
+        // Rating
         if (movie.status == Status.WATCHED && movie.rating != null) {
-            holder.rating.visibility = View.VISIBLE
             holder.rating.text = "${movie.rating}/10"
+            holder.rating.visibility = View.VISIBLE
         } else {
             holder.rating.visibility = View.GONE
         }
-
-        holder.status.setBackgroundResource(R.drawable.status_badge)
-        holder.status.backgroundTintList = ContextCompat.getColorStateList(holder.itemView.context, statusColorRes)
-
-        holder.itemView.setOnLongClickListener {
-            onLongClick?.invoke(movie)
-            true
-        }
-
-
     }
 
     override fun getItemCount(): Int = movies.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newMovies: List<MovieDto>) {
         movies = newMovies
         notifyDataSetChanged()
