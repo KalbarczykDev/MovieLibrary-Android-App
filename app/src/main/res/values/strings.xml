@@ -76,5 +76,6 @@
     <string name="movie_premiere_date">"Premiere Date "</string>
     <string name="back">Back Button\n</string>
     <string name="already_watched">Can\'t Edit Watched Movie</string>
+    <string name="movie_updated">Movie Updated</string>
 
 </resources>
