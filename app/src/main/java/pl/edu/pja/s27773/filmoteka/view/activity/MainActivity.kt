@@ -17,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pja.s27773.filmoteka.R
 import pl.edu.pja.s27773.filmoteka.model.Category
 import pl.edu.pja.s27773.filmoteka.model.Status
-import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import pl.edu.pja.s27773.filmoteka.view.adapter.MovieAdapter
-import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -178,19 +176,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onAddMovieClick() {
-        val newMovie = MovieDto(
-            id = null,
-            title = "Test Movie ${System.currentTimeMillis()}",
-            releaseDate = LocalDate.now(),
-            category = Category.NONE,
-            status = Status.NOT_WATCHED,
-            rating = null,
-            comment = null,
-            posterUri = null
-        )
-
-        MovieService.add(newMovie)
-        filterMovies()
+        startActivity(Intent(this, AddMovieActivity::class.java))
     }
 
 
