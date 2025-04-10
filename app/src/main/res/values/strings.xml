@@ -74,5 +74,7 @@
     <string name="save">Save</string>
     <string name="comment">Comment</string>
     <string name="movie_premiere_date">"Premiere Date "</string>
+    <string name="back">Back Button\n</string>
+    <string name="already_watched">Can\'t Edit Watched Movie</string>
 
 </resources>

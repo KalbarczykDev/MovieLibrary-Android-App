@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -150,14 +151,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         movieAdapter.onClick = { movie ->
-            movie.id?.let { movieId ->
-                val intent = Intent(
-                    this,
-                    if (movie.status == Status.NOT_WATCHED) EditMovieActivity::class.java
-                    else PreviewMovieActivity::class.java
-                )
-                intent.putExtra("movie_id", movieId.toLong())
-                startActivity(intent)
+
+            if (movie.status == Status.WATCHED) {
+                Toast.makeText(this, "${getString(R.string.already_watched)}: ${movie.title} ", Toast.LENGTH_SHORT).show()
+            } else {
+                movie.id?.let { movieId ->
+                    val intent = Intent(
+                        this,
+                        EditMovieActivity::class.java
+                    )
+                    intent.putExtra("movie_id", movieId.toLong())
+                    startActivity(intent)
+                }
             }
         }
 
