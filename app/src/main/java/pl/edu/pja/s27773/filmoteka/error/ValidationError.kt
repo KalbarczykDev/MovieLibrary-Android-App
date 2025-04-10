@@ -20,3 +20,8 @@ enum class CommentError(override val stringResKey: String) :
 enum class IdError(override val stringResKey: String) : AppError {
     INVALID("error_id_invalid")
 }
+
+enum class ReleaseDateError(override val stringResKey: String) :
+    AppError {
+    RELEASE_DATE_FUTURE("error_release_date_future")
+}
