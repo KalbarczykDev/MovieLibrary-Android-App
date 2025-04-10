@@ -1,7 +1,6 @@
 package pl.edu.pja.s27773.filmoteka.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +12,7 @@ import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import java.time.LocalDate
 
-class AddMovieActivity : AppCompatActivity() {
+class AddEditMovieActivity : AppCompatActivity() {
 
     private lateinit var categorySpinner: Spinner
     private lateinit var statusSpinner: Spinner
@@ -24,7 +23,7 @@ class AddMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_add_movie)
+        setContentView(R.layout.activity_add_edit_movie)
         applySystemInsets()
         initViews()
         setupSpinners()
@@ -88,7 +87,6 @@ class AddMovieActivity : AppCompatActivity() {
             Status.NOT_WATCHED,
             10,
             null,
-            null
         )
 
         try {

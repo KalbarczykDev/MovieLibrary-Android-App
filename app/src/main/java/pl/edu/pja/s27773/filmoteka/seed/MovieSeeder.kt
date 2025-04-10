@@ -22,7 +22,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(7),
-                    Comment.of("Surreal!"),
                     Uri.parse("android.resource://$packageName/drawable/inception")
                 ),
                 Movie(
@@ -31,7 +30,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(10),
-                    Comment.of("A timeless classic."),
                     Uri.parse("android.resource://$packageName/drawable/god_father")
                 ),
                 Movie(
@@ -40,7 +38,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(7),
-                    Comment.of("Best superhero movie ever!"),
                     Uri.parse("android.resource://$packageName/drawable/dark_knight")
                 ),
 
@@ -51,7 +48,6 @@ object MovieSeeder {
                     Category.DOCUMENTARY,
                     Status.NOT_WATCHED,
                     null,
-                    null,
                     Uri.parse("android.resource://$packageName/drawable/planet_earth")
                 ),
                 Movie(
@@ -61,7 +57,6 @@ object MovieSeeder {
                     Category.SERIES,
                     Status.WATCHED,
                     Rating.of(8),
-                    Comment.of("BEST SERIES OF ALL TIME!"),
                     Uri.parse("android.resource://$packageName/drawable/breaking_bad")
                 ),
                 Movie(
@@ -70,7 +65,6 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(2011, 4, 17)),
                     Category.SERIES,
                     Status.NOT_WATCHED,
-                    null,
                     null,
                     Uri.parse("android.resource://$packageName/drawable/game_of_thrones")
                 ),
@@ -81,7 +75,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(7),
-                    Comment.of("A sci-fi masterpiece!"),
                     Uri.parse("android.resource://$packageName/drawable/matrix")
                 ),
 
@@ -92,7 +85,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(7),
-                    Comment.of("Mind-bending and emotional."),
                     Uri.parse("android.resource://$packageName/drawable/interstellar")
                 ),
                 Movie(
@@ -102,7 +94,6 @@ object MovieSeeder {
                     Category.SERIES,
                     Status.WATCHED,
                     Rating.of(8),
-                    Comment.of("Gripping and haunting."),
                     Uri.parse("android.resource://$packageName/drawable/chernobyl")
                 ),
                 Movie(
@@ -112,7 +103,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(10),
-                    Comment.of("Heartbreaking and powerful."),
                     Uri.parse("android.resource://$packageName/drawable/schindler")
                 ),
                 Movie(
@@ -124,7 +114,6 @@ object MovieSeeder {
                     Category.MOVIE,
                     Status.WATCHED,
                     Rating.of(1),
-                    Comment.of("Disappointing"),
                     Uri.parse("android.resource://$packageName/drawable/snow")
                 ),
             )

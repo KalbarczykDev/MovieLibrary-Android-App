@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
                 movie.id?.let { movieId ->
                     val intent = Intent(
                         this,
-                        EditMovieActivity::class.java
+                        AddEditMovieActivity::class.java
                     )
                     intent.putExtra("movie_id", movieId.toLong())
                     startActivity(intent)
@@ -191,7 +191,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onAddMovieClick() {
-        val intent = Intent(this, AddMovieActivity::class.java)
+        val intent = Intent(this, AddEditMovieActivity::class.java)
         addMovieLauncher.launch(intent)
     }
 

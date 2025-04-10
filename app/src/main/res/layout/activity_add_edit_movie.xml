@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".view.activity.AddMovieActivity">
+    tools:context=".view.activity.AddEditMovieActivity">
 
     <!-- Header -->
 

@@ -11,7 +11,6 @@ fun MovieDto.toDomain(): Movie = Movie(
     category = category,
     status = status,
     rating = rating?.let { Rating.of(it) },
-    comment = comment?.let { Comment.of(it) },
     posterUri = posterUri
 )
 
@@ -22,6 +21,5 @@ fun Movie.toDto(): MovieDto = MovieDto(
     category = category,
     status = status,
     rating = rating?.toString()?.replace("/10", "")?.toIntOrNull(),
-    comment = comment?.toString(),
     posterUri = posterUri
 )

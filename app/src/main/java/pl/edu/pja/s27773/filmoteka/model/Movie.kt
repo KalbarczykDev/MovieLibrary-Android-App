@@ -12,7 +12,6 @@ data class Movie(
     var category: Category,
     var status: Status,
     var rating: Rating? = null,
-    var comment: Comment? = null,
     var posterUri: Uri? = null
 )
 
