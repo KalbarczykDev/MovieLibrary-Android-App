@@ -11,6 +11,6 @@ data class MovieDto (
     val releaseDate: LocalDate,
     val category: Category,
     val status: Status,
-    val rating: Int?, // nullable for NOT_WATCHED
+    val rating: Float?, // nullable for NOT_WATCHED
     val posterUri: Uri?
 )

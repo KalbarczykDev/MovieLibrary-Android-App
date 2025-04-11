@@ -21,7 +21,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(2010, 7, 16)),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(7),
+                    Rating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/inception")
                 ),
                 Movie(
@@ -29,7 +29,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(1972, 3, 24)),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(10),
+                    Rating.of(10f),
                     Uri.parse("android.resource://$packageName/drawable/god_father")
                 ),
                 Movie(
@@ -37,7 +37,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(2008, 7, 18)),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(7),
+                    Rating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/dark_knight")
                 ),
 
@@ -56,7 +56,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(2008, 1, 20)),
                     Category.SERIES,
                     Status.WATCHED,
-                    Rating.of(8),
+                    Rating.of(8f),
                     Uri.parse("android.resource://$packageName/drawable/breaking_bad")
                 ),
                 Movie(
@@ -74,7 +74,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(1999, 3, 31)),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(7),
+                    Rating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/matrix")
                 ),
 
@@ -84,7 +84,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(2014, 11, 7)),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(7),
+                    Rating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/interstellar")
                 ),
                 Movie(
@@ -93,7 +93,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(2019, 5, 6)),
                     Category.SERIES,
                     Status.WATCHED,
-                    Rating.of(8),
+                    Rating.of(8f),
                     Uri.parse("android.resource://$packageName/drawable/chernobyl")
                 ),
                 Movie(
@@ -102,7 +102,7 @@ object MovieSeeder {
                     ReleaseDate.of(LocalDate.of(1993, 12, 15)),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(10),
+                    Rating.of(10f),
                     Uri.parse("android.resource://$packageName/drawable/schindler")
                 ),
                 Movie(
@@ -113,7 +113,7 @@ object MovieSeeder {
                     ),
                     Category.MOVIE,
                     Status.WATCHED,
-                    Rating.of(1),
+                    Rating.of(1f),
                     Uri.parse("android.resource://$packageName/drawable/snow")
                 ),
             )

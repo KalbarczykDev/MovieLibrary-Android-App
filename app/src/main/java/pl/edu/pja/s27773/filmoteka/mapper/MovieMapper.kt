@@ -20,6 +20,6 @@ fun Movie.toDto(): MovieDto = MovieDto(
     releaseDate = releaseDate.value,
     category = category,
     status = status,
-    rating = rating?.toString()?.replace("/10", "")?.toIntOrNull(),
+    rating = rating?.value,
     posterUri = posterUri
 )

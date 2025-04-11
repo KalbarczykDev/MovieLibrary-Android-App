@@ -73,8 +73,11 @@ class MovieAdapter(
 
         // Rating
         if (movie.status == Status.WATCHED && movie.rating != null) {
-            holder.rating.text = "${movie.rating}/10"
-            holder.rating.visibility = View.VISIBLE
+            holder.rating.text = if (movie.rating % 1 == 0f) {
+                "${movie.rating.toInt()}/10"
+            } else {
+                "${movie.rating}/10"
+            }
         } else {
             holder.rating.visibility = View.GONE
         }
