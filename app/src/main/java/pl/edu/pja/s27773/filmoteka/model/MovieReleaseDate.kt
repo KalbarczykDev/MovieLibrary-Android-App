@@ -5,7 +5,7 @@ import pl.edu.pja.s27773.filmoteka.error.ReleaseDateError
 import java.time.LocalDate
 
 @JvmInline
-value class ReleaseDate private constructor(val value: LocalDate) {
+value class MovieReleaseDate private constructor(val value: LocalDate) {
     companion object {
         private fun validate(value: LocalDate) {
             if (value.isAfter(LocalDate.now().plusYears(2))) {
@@ -13,9 +13,9 @@ value class ReleaseDate private constructor(val value: LocalDate) {
             }
         }
 
-        fun of(value: LocalDate): ReleaseDate {
+        fun of(value: LocalDate): MovieReleaseDate {
             validate(value)
-            return ReleaseDate(value)
+            return MovieReleaseDate(value)
         }
     }
 

@@ -18,8 +18,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pja.s27773.filmoteka.R
-import pl.edu.pja.s27773.filmoteka.model.Category
-import pl.edu.pja.s27773.filmoteka.model.Status
+import pl.edu.pja.s27773.filmoteka.model.MovieCategory
+import pl.edu.pja.s27773.filmoteka.model.MovieStatus
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import pl.edu.pja.s27773.filmoteka.view.adapter.MovieAdapter
 
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var filterToggleButton: View
     private var filtersVisible = false
 
-    private lateinit var categoryMap: Map<String, Category>
-    private lateinit var statusMap: Map<String, Status>
+    private lateinit var categoryMap: Map<String, MovieCategory>
+    private lateinit var statusMap: Map<String, MovieStatus>
     private lateinit var addMovieLauncher: ActivityResultLauncher<Intent>
 
 
@@ -95,16 +95,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupSpinners() {
         categoryMap = mapOf(
-            getString(R.string.category_all) to Category.NONE,
-            getString(R.string.category_movie) to Category.MOVIE,
-            getString(R.string.category_series) to Category.SERIES,
-            getString(R.string.category_documentary) to Category.DOCUMENTARY
+            getString(R.string.category_all) to MovieCategory.NONE,
+            getString(R.string.category_movie) to MovieCategory.MOVIE,
+            getString(R.string.category_series) to MovieCategory.SERIES,
+            getString(R.string.category_documentary) to MovieCategory.DOCUMENTARY
         )
 
         statusMap = mapOf(
-            getString(R.string.status_all) to Status.NONE,
-            getString(R.string.status_watched) to Status.WATCHED,
-            getString(R.string.status_not_watched) to Status.NOT_WATCHED
+            getString(R.string.status_all) to MovieStatus.NONE,
+            getString(R.string.status_watched) to MovieStatus.WATCHED,
+            getString(R.string.status_not_watched) to MovieStatus.NOT_WATCHED
         )
 
         categorySpinner.adapter = ArrayAdapter(
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
         movieAdapter.onClick = { movie ->
 
-            if (movie.status == Status.WATCHED) {
+            if (movie.status == MovieStatus.WATCHED) {
                 Toast.makeText(this, "${getString(R.string.already_watched)}: ${movie.title} ", Toast.LENGTH_SHORT)
                     .show()
             } else {
@@ -171,12 +171,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun filterMovies() {
-        val selectedCategory = categoryMap[categorySpinner.selectedItem as String] ?: Category.NONE
-        val selectedStatus = statusMap[statusSpinner.selectedItem as String] ?: Status.NONE
+        val selectedCategory = categoryMap[categorySpinner.selectedItem as String] ?: MovieCategory.NONE
+        val selectedStatus = statusMap[statusSpinner.selectedItem as String] ?: MovieStatus.NONE
 
         val filteredMovies = MovieService.getAll().filter {
-            (selectedCategory == Category.NONE || it.category == selectedCategory) &&
-                    (selectedStatus == Status.NONE || it.status == selectedStatus)
+            (selectedCategory == MovieCategory.NONE || it.category == selectedCategory) &&
+                    (selectedStatus == MovieStatus.NONE || it.status == selectedStatus)
         }
 
         movieAdapter.updateData(filteredMovies)

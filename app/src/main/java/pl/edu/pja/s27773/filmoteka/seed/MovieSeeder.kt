@@ -11,109 +11,109 @@ object MovieSeeder {
         MovieRepository.clear()
 
         var idCounter = 1;
-        fun nextSeedId() = Id.of(idCounter++)
+        fun nextSeedId() = MovieId.of(idCounter++)
         val packageName = "pl.edu.pja.s27773.filmoteka"
 
         try {
             val movies = listOf(
                 Movie(
-                    nextSeedId(), Title.of("Inception"),
-                    ReleaseDate.of(LocalDate.of(2010, 7, 16)),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(7f),
+                    nextSeedId(), MovieTitle.of("Inception"),
+                    MovieReleaseDate.of(LocalDate.of(2010, 7, 16)),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/inception")
                 ),
                 Movie(
-                    nextSeedId(), Title.of("The Godfather"),
-                    ReleaseDate.of(LocalDate.of(1972, 3, 24)),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(10f),
+                    nextSeedId(), MovieTitle.of("The Godfather"),
+                    MovieReleaseDate.of(LocalDate.of(1972, 3, 24)),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(10f),
                     Uri.parse("android.resource://$packageName/drawable/god_father")
                 ),
                 Movie(
-                    nextSeedId(), Title.of("The Dark Knight"),
-                    ReleaseDate.of(LocalDate.of(2008, 7, 18)),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(7f),
+                    nextSeedId(), MovieTitle.of("The Dark Knight"),
+                    MovieReleaseDate.of(LocalDate.of(2008, 7, 18)),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/dark_knight")
                 ),
 
                 Movie(
                     nextSeedId(),
-                    Title.of("Planet Earth"),
-                    ReleaseDate.of(LocalDate.of(2006, 3, 5)),
-                    Category.DOCUMENTARY,
-                    Status.NOT_WATCHED,
+                    MovieTitle.of("Planet Earth"),
+                    MovieReleaseDate.of(LocalDate.of(2006, 3, 5)),
+                    MovieCategory.DOCUMENTARY,
+                    MovieStatus.NOT_WATCHED,
                     null,
                     Uri.parse("android.resource://$packageName/drawable/planet_earth")
                 ),
                 Movie(
                     nextSeedId(),
-                    Title.of("Breaking Bad"),
-                    ReleaseDate.of(LocalDate.of(2008, 1, 20)),
-                    Category.SERIES,
-                    Status.WATCHED,
-                    Rating.of(8f),
+                    MovieTitle.of("Breaking Bad"),
+                    MovieReleaseDate.of(LocalDate.of(2008, 1, 20)),
+                    MovieCategory.SERIES,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(8f),
                     Uri.parse("android.resource://$packageName/drawable/breaking_bad")
                 ),
                 Movie(
                     nextSeedId(),
-                    Title.of("Game Of Thrones"),
-                    ReleaseDate.of(LocalDate.of(2011, 4, 17)),
-                    Category.SERIES,
-                    Status.NOT_WATCHED,
+                    MovieTitle.of("Game Of Thrones"),
+                    MovieReleaseDate.of(LocalDate.of(2011, 4, 17)),
+                    MovieCategory.SERIES,
+                    MovieStatus.NOT_WATCHED,
                     null,
                     Uri.parse("android.resource://$packageName/drawable/game_of_thrones")
                 ),
                 Movie(
                     nextSeedId(),
-                    Title.of("The Matrix"),
-                    ReleaseDate.of(LocalDate.of(1999, 3, 31)),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(7f),
+                    MovieTitle.of("The Matrix"),
+                    MovieReleaseDate.of(LocalDate.of(1999, 3, 31)),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/matrix")
                 ),
 
                 Movie(
                     nextSeedId(),
-                    Title.of("Interstellar"),
-                    ReleaseDate.of(LocalDate.of(2014, 11, 7)),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(7f),
+                    MovieTitle.of("Interstellar"),
+                    MovieReleaseDate.of(LocalDate.of(2014, 11, 7)),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(7f),
                     Uri.parse("android.resource://$packageName/drawable/interstellar")
                 ),
                 Movie(
                     nextSeedId(),
-                    Title.of("Chernobyl"),
-                    ReleaseDate.of(LocalDate.of(2019, 5, 6)),
-                    Category.SERIES,
-                    Status.WATCHED,
-                    Rating.of(8f),
+                    MovieTitle.of("Chernobyl"),
+                    MovieReleaseDate.of(LocalDate.of(2019, 5, 6)),
+                    MovieCategory.SERIES,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(8f),
                     Uri.parse("android.resource://$packageName/drawable/chernobyl")
                 ),
                 Movie(
                     nextSeedId(),
-                    Title.of("Schindler's List"),
-                    ReleaseDate.of(LocalDate.of(1993, 12, 15)),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(10f),
+                    MovieTitle.of("Schindler's List"),
+                    MovieReleaseDate.of(LocalDate.of(1993, 12, 15)),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(10f),
                     Uri.parse("android.resource://$packageName/drawable/schindler")
                 ),
                 Movie(
                     nextSeedId(),
-                    Title.of("Snow White"),
-                    ReleaseDate.of(
+                    MovieTitle.of("Snow White"),
+                    MovieReleaseDate.of(
                         LocalDate.of(2025, 4, 2)
                     ),
-                    Category.MOVIE,
-                    Status.WATCHED,
-                    Rating.of(1f),
+                    MovieCategory.MOVIE,
+                    MovieStatus.WATCHED,
+                    MovieRating.of(1f),
                     Uri.parse("android.resource://$packageName/drawable/snow")
                 ),
             )

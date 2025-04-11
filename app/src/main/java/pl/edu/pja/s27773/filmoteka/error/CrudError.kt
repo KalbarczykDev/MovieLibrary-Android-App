@@ -9,4 +9,8 @@ sealed class MovieCrudError(
     object NotFound : MovieCrudError("error_movie_not_found", "Movie not found")
     object CategoryNotSelected : MovieCrudError("error_category_not_selected", "Category not selected")
     object StatusNotSelected : MovieCrudError("error_status_not_selected", "Status not selected")
+    object RatingNotSetForWatchedMovie : MovieCrudError(
+        "error_rating_not_set_for_watched_movie",
+        "Rating not set for watched movie"
+    )
 }

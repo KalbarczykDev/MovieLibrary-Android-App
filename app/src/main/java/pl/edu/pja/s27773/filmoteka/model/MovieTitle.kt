@@ -4,7 +4,7 @@ import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.TitleError
 
 @JvmInline
-value class Title private constructor(val value: String) {
+value class MovieTitle private constructor(val value: String) {
     companion object {
         private fun validate(value: String) {
             if (value.isBlank()) throw throw AppErrorException(TitleError.Blank)
@@ -12,9 +12,9 @@ value class Title private constructor(val value: String) {
 
         }
 
-        fun of(value: String): Title {
+        fun of(value: String): MovieTitle {
             validate(value)
-            return Title(value.trim())
+            return MovieTitle(value.trim())
         }
     }
 

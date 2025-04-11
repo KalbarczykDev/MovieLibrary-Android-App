@@ -6,9 +6,9 @@ import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.repository.MovieRepository
 import pl.edu.pja.s27773.filmoteka.mapper.toDomain
 import pl.edu.pja.s27773.filmoteka.mapper.toDto
-import pl.edu.pja.s27773.filmoteka.model.Category
-import pl.edu.pja.s27773.filmoteka.model.Id
-import pl.edu.pja.s27773.filmoteka.model.Status
+import pl.edu.pja.s27773.filmoteka.model.MovieCategory
+import pl.edu.pja.s27773.filmoteka.model.MovieId
+import pl.edu.pja.s27773.filmoteka.model.MovieStatus
 
 object MovieService {
     fun getAll(): List<MovieDto> {
@@ -19,19 +19,11 @@ object MovieService {
 
     fun getById(id: Int): MovieDto? {
         if (id < 0) return null
-        return MovieRepository.getById(Id.of(id))?.toDto()
+        return MovieRepository.getById(MovieId.of(id))?.toDto()
     }
 
     fun add(dto: MovieDto) {
-
-        if (dto.category == Category.NONE) {
-            throw AppErrorException(MovieCrudError.CategoryNotSelected)
-        }
-
-        if (dto.status == Status.NONE) {
-            throw AppErrorException(MovieCrudError.StatusNotSelected)
-        }
-
+        validate(dto)
         MovieRepository.add(dto.toDomain())
     }
 
@@ -40,15 +32,23 @@ object MovieService {
     }
 
     fun update(dto: MovieDto) {
-        if (dto.category == Category.NONE) {
+        validate(dto)
+        MovieRepository.update(dto.toDomain())
+    }
+
+
+    private fun validate(dto: MovieDto) {
+        if (dto.category == MovieCategory.NONE) {
             throw AppErrorException(MovieCrudError.CategoryNotSelected)
         }
 
-        if (dto.status == Status.NONE) {
+        if (dto.status == MovieStatus.NONE) {
             throw AppErrorException(MovieCrudError.StatusNotSelected)
         }
 
-        MovieRepository.update(dto.toDomain())
+        if (dto.status == MovieStatus.WATCHED && dto.rating == null) {
+            throw AppErrorException(MovieCrudError.RatingNotSetForWatchedMovie)
+        }
     }
 
 }

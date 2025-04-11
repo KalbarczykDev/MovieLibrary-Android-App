@@ -1,6 +1,5 @@
 package pl.edu.pja.s27773.filmoteka.repository
 
-import android.util.Log
 import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.*
@@ -13,7 +12,7 @@ object MovieRepository {
         return movies.toList()
     } //immutable list
 
-    fun getById(id: Id): Movie? {
+    fun getById(id: MovieId): Movie? {
         return movies.find { it.id == id }
     }
 
@@ -22,9 +21,9 @@ object MovieRepository {
         movies.add(movie)
     }
 
-    fun nextId(): Id {
+    fun nextId(): MovieId {
         val maxId = movies.maxOfOrNull { it.id.value } ?: 0
-        return Id.of(maxId + 1)
+        return MovieId.of(maxId + 1)
     }
 
     fun update(updated: Movie) {
@@ -32,7 +31,13 @@ object MovieRepository {
         if (index == -1) {
             throw AppErrorException(MovieCrudError.NotFound)
         } else {
-            movies[index] = updated
+            val movie = movies[index]
+            movie.title = updated.title
+            movie.releaseDate = updated.releaseDate
+            movie.status = updated.status
+            movie.category = updated.category
+            movie.rating = updated.rating
+            movie.posterUri = updated.posterUri
         }
     }
 

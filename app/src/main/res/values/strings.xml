@@ -48,6 +48,10 @@
     <string name="error_movie_update">Error updating movie</string>
     <string name="error_movie_delete">Error deleting movie</string>
     <string name="error_movie_not_found">Movie not found</string>
+    <string name="error_status_not_selected">Status not selected</string>
+    <string name="error_category_not_selected">Category not selected</string>
+    <string name="error_rating_not_set_for_watched_movie">Rating not set for watched movie</string>
+
 
 
     <!-- UI -->

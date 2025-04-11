@@ -24,7 +24,6 @@ import pl.edu.pja.s27773.filmoteka.service.MovieService
 import java.time.LocalDate
 import android.Manifest
 import android.view.View
-import kotlin.math.roundToInt
 
 
 class AddEditMovieActivity : AppCompatActivity() {
@@ -37,8 +36,8 @@ class AddEditMovieActivity : AppCompatActivity() {
     private lateinit var posterImage: ImageView
     private lateinit var ratingBar: AppCompatRatingBar
 
-    private lateinit var categoryMap: Map<String, Category>
-    private lateinit var statusMap: Map<String, Status>
+    private lateinit var categoryMap: Map<String, MovieCategory>
+    private lateinit var statusMap: Map<String, MovieStatus>
 
     private var isEditMode = false
     private var movieId: Int? = null
@@ -109,15 +108,14 @@ class AddEditMovieActivity : AppCompatActivity() {
 
     private fun setupSpinners() {
         categoryMap = mapOf(
-            getString(R.string.category_none) to Category.NONE,
-            getString(R.string.category_movie) to Category.MOVIE,
-            getString(R.string.category_series) to Category.SERIES,
-            getString(R.string.category_documentary) to Category.DOCUMENTARY
+            getString(R.string.category_movie) to MovieCategory.MOVIE,
+            getString(R.string.category_series) to MovieCategory.SERIES,
+            getString(R.string.category_documentary) to MovieCategory.DOCUMENTARY
         )
 
         statusMap = mapOf(
-            getString(R.string.status_watched) to Status.WATCHED,
-            getString(R.string.status_not_watched) to Status.NOT_WATCHED
+            getString(R.string.status_watched) to MovieStatus.WATCHED,
+            getString(R.string.status_not_watched) to MovieStatus.NOT_WATCHED
         )
 
         categorySpinner.adapter = ArrayAdapter(this, R.layout.spinner_item, categoryMap.keys.toList())
@@ -126,8 +124,8 @@ class AddEditMovieActivity : AppCompatActivity() {
         statusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val status = statusMap[statusSpinner.selectedItem.toString()]
-                ratingBar.isEnabled = (status == Status.WATCHED)
-                if (status != Status.WATCHED) {
+                ratingBar.isEnabled = (status == MovieStatus.WATCHED)
+                if (status != MovieStatus.WATCHED) {
                     ratingBar.rating = 0f
                 }
             }
@@ -188,10 +186,10 @@ class AddEditMovieActivity : AppCompatActivity() {
 
     private fun handleSave() {
         val title = titleInput.text.toString()
-        val selectedStatus = statusMap[statusSpinner.selectedItem.toString()] ?: Status.NONE
-        val selectedCategory = categoryMap[categorySpinner.selectedItem.toString()] ?: Category.NONE
+        val selectedStatus = statusMap[statusSpinner.selectedItem.toString()] ?: MovieStatus.NONE
+        val selectedCategory = categoryMap[categorySpinner.selectedItem.toString()] ?: MovieCategory.NONE
         val releaseDate = selectedReleaseDate ?: LocalDate.now()
-        val rating = if (selectedStatus == Status.WATCHED) ratingBar.rating else null
+        val rating = if (selectedStatus == MovieStatus.WATCHED) ratingBar.rating else null
 
         val dto = MovieDto(
             id = if (isEditMode) movieId else null,

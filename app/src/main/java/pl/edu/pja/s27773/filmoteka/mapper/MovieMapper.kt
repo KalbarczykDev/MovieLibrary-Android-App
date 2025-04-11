@@ -5,12 +5,12 @@ import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.repository.MovieRepository
 
 fun MovieDto.toDomain(): Movie = Movie(
-    id = Id.of(id ?: MovieRepository.nextId().toString().toInt()),
-    title = Title.of(title),
-    releaseDate = ReleaseDate.of(releaseDate),
+    id = MovieId.of(id ?: MovieRepository.nextId().toString().toInt()),
+    title = MovieTitle.of(title),
+    releaseDate = MovieReleaseDate.of(releaseDate),
     category = category,
     status = status,
-    rating = rating?.let { Rating.of(it) },
+    rating = rating?.let { MovieRating.of(it) },
     posterUri = posterUri
 )
 

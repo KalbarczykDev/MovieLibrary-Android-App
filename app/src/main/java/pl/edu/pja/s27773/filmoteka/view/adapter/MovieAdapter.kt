@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pja.s27773.filmoteka.R
-import pl.edu.pja.s27773.filmoteka.model.Status
+import pl.edu.pja.s27773.filmoteka.model.MovieStatus
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 
 class MovieAdapter(
@@ -67,12 +67,12 @@ class MovieAdapter(
         holder.status.setBackgroundResource(R.drawable.status_badge)
         holder.status.backgroundTintList = ContextCompat.getColorStateList(
             context,
-            if (movie.status == Status.WATCHED) R.color.status_watched else R.color.status_unwatched
+            if (movie.status == MovieStatus.WATCHED) R.color.status_watched else R.color.status_unwatched
         )
-        holder.status.visibility = if (movie.status == Status.NOT_WATCHED) View.GONE else View.VISIBLE
+        holder.status.visibility = if (movie.status == MovieStatus.NOT_WATCHED) View.GONE else View.VISIBLE
 
         // Rating
-        if (movie.status == Status.WATCHED && movie.rating != null) {
+        if (movie.status == MovieStatus.WATCHED && movie.rating != null) {
             holder.rating.text = if (movie.rating % 1 == 0f) {
                 "${movie.rating.toInt()}/10"
             } else {
