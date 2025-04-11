@@ -192,9 +192,9 @@
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/rating_bar"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:numStars="10"
+                android:numStars="5"
                 android:stepSize="0.5"
                 android:enabled="false"
                 android:isIndicator="false"
@@ -202,7 +202,8 @@
                 android:progressTint="@color/rating"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/date_layout"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp" android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
+                android:max="10" android:progress="0" android:indeterminate="false"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Scrollable Form Content -->

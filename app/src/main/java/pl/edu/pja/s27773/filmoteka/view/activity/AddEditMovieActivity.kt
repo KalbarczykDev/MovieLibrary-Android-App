@@ -44,6 +44,7 @@ class AddEditMovieActivity : AppCompatActivity() {
     private var currentMovie: MovieDto? = null
     private var selectedPosterUri: Uri? = null
     private var selectedReleaseDate: LocalDate? = null
+    private var isRestoringForm = false
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -156,14 +157,16 @@ class AddEditMovieActivity : AppCompatActivity() {
     }
 
     private fun fillFormWithMovie(movie: MovieDto) {
+        isRestoringForm = true
         titleInput.setText(movie.title)
         statusSpinner.setSelection(statusMap.values.indexOf(movie.status))
         categorySpinner.setSelection(categoryMap.values.indexOf(movie.category))
+        ratingBar.rating = movie.rating ?: 0f
         releaseDateText.text = movie.releaseDate.toString()
         selectedReleaseDate = movie.releaseDate
-        ratingBar.rating = (movie.rating ?: 0).toFloat()
         selectedPosterUri = movie.posterUri
         posterImage.setImageURI(movie.posterUri)
+        isRestoringForm = false
     }
 
     private fun openGallery() {
@@ -189,7 +192,15 @@ class AddEditMovieActivity : AppCompatActivity() {
         val selectedStatus = statusMap[statusSpinner.selectedItem.toString()] ?: MovieStatus.NONE
         val selectedCategory = categoryMap[categorySpinner.selectedItem.toString()] ?: MovieCategory.NONE
         val releaseDate = selectedReleaseDate ?: LocalDate.now()
-        val rating = if (selectedStatus == MovieStatus.WATCHED) ratingBar.rating else null
+        val rating = if (selectedStatus == MovieStatus.WATCHED) {
+            ratingBar.rating
+        } else {
+            null
+        }
+
+
+        Log.d("AddEditMovieActivity", "Selected rating: $rating")
+
 
         val dto = MovieDto(
             id = if (isEditMode) movieId else null,

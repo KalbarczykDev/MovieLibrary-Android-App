@@ -7,7 +7,7 @@ import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 value class MovieRating private constructor(val value: Float) {
     companion object {
         private fun validate(value: Float) {
-            if (value < 0 || value > 10) throw AppErrorException(RatingError.Invalid)
+            if (value < 0 || value > 5) throw AppErrorException(RatingError.Invalid)
         }
 
         fun of(value: Float): MovieRating {

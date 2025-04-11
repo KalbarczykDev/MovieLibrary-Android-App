@@ -1,5 +1,6 @@
 package pl.edu.pja.s27773.filmoteka.service
 
+import android.util.Log
 import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
@@ -23,6 +24,7 @@ object MovieService {
     }
 
     fun add(dto: MovieDto) {
+        debug(dto)
         validate(dto)
         MovieRepository.add(dto.toDomain())
     }
@@ -32,6 +34,7 @@ object MovieService {
     }
 
     fun update(dto: MovieDto) {
+        debug(dto)
         validate(dto)
         MovieRepository.update(dto.toDomain())
     }
@@ -49,6 +52,10 @@ object MovieService {
         if (dto.status == MovieStatus.WATCHED && dto.rating == null) {
             throw AppErrorException(MovieCrudError.RatingNotSetForWatchedMovie)
         }
+    }
+
+    private fun debug(dto: MovieDto) {
+        Log.d("Movie Service", dto.toString())
     }
 
 }

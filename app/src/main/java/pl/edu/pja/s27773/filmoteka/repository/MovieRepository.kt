@@ -1,8 +1,10 @@
 package pl.edu.pja.s27773.filmoteka.repository
 
+import android.util.Log
 import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.*
+import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 
 //sugar code dla  singletona
 object MovieRepository {
@@ -17,6 +19,7 @@ object MovieRepository {
     }
 
     fun add(movie: Movie) {
+        debug(movie)
         if (movies.any { it.id == movie.id }) throw AppErrorException(MovieCrudError.IdTaken)
         movies.add(movie)
     }
@@ -27,6 +30,7 @@ object MovieRepository {
     }
 
     fun update(updated: Movie) {
+        debug(updated)
         val index = movies.indexOfFirst { it.id == updated.id }
         if (index == -1) {
             throw AppErrorException(MovieCrudError.NotFound)
@@ -48,6 +52,10 @@ object MovieRepository {
 
     fun clear() {
         movies.clear()
+    }
+
+    private fun debug(dto: Movie) {
+        Log.d("Movie Repo", dto.toString())
     }
 
 }

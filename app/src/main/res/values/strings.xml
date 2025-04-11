@@ -33,7 +33,7 @@
     <string name="error_title_blank">Title cannot be blank</string>
     <string name="error_title_to_long">Tittle must be less than 300 characters</string>
     <string name="error_comment_too_long">Comment is too long</string>
-    <string name="error_rating_invalid">Rating must be between 1 and 10</string>
+    <string name="error_rating_invalid">Rating must be between 0 and 5</string>
     <string name="error_release_date_future">Release date cannot be more than 2 years in the future</string>
     <string name="error_movie_exists">A movie with this ID already exists</string>
     <string name="error_rating_required">Rating is required for watched movies</string>
