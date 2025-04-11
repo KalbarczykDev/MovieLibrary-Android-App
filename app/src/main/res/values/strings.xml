@@ -77,5 +77,6 @@
     <string name="back">Back Button\n</string>
     <string name="already_watched">Can\'t Edit Watched Movie</string>
     <string name="movie_updated">Movie Updated</string>
+    <string name="image_load_failed">Failed to load image</string>
 
 </resources>
