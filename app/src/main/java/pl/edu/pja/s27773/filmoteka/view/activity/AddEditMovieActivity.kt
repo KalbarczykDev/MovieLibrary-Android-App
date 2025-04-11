@@ -1,16 +1,18 @@
 package pl.edu.pja.s27773.filmoteka.view.activity
 
 import android.app.DatePickerDialog
-import android.content.Intent
-import android.graphics.ImageDecoder
+import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,6 +22,10 @@ import pl.edu.pja.s27773.filmoteka.model.*
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import java.time.LocalDate
+import android.Manifest
+import android.view.View
+import kotlin.math.roundToInt
+
 
 class AddEditMovieActivity : AppCompatActivity() {
 
@@ -40,7 +46,22 @@ class AddEditMovieActivity : AppCompatActivity() {
     private var selectedPosterUri: Uri? = null
     private var selectedReleaseDate: LocalDate? = null
 
-    private val REQUEST_IMAGE_PICK = 1001
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openGallery()
+            } else {
+                Toast.makeText(this, "Permission denied to access images", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private val imagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                selectedPosterUri = it
+                posterImage.setImageURI(it)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +106,7 @@ class AddEditMovieActivity : AppCompatActivity() {
         posterImage.setOnClickListener { openGallery() }
     }
 
+
     private fun setupSpinners() {
         categoryMap = mapOf(
             getString(R.string.category_none) to Category.NONE,
@@ -94,25 +116,26 @@ class AddEditMovieActivity : AppCompatActivity() {
         )
 
         statusMap = mapOf(
-            getString(R.string.status_none) to Status.NONE,
             getString(R.string.status_watched) to Status.WATCHED,
             getString(R.string.status_not_watched) to Status.NOT_WATCHED
         )
 
         categorySpinner.adapter = ArrayAdapter(this, R.layout.spinner_item, categoryMap.keys.toList())
         statusSpinner.adapter = ArrayAdapter(this, R.layout.spinner_item, statusMap.keys.toList())
+
+        statusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val status = statusMap[statusSpinner.selectedItem.toString()]
+                ratingBar.isEnabled = (status == Status.WATCHED)
+                if (status != Status.WATCHED) {
+                    ratingBar.rating = 0f
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
-    private fun fillFormWithMovie(movie: MovieDto) {
-        titleInput.setText(movie.title)
-        statusSpinner.setSelection(statusMap.values.indexOf(movie.status))
-        categorySpinner.setSelection(categoryMap.values.indexOf(movie.category))
-        releaseDateText.text = movie.releaseDate.toString()
-        selectedReleaseDate = movie.releaseDate
-        ratingBar.rating = (movie.rating ?: 0).toFloat()
-        selectedPosterUri = movie.posterUri
-        posterImage.setImageURI(movie.posterUri)
-    }
 
     private fun setupDatePicker() {
         val today = LocalDate.now()
@@ -134,12 +157,41 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
     }
 
+    private fun fillFormWithMovie(movie: MovieDto) {
+        titleInput.setText(movie.title)
+        statusSpinner.setSelection(statusMap.values.indexOf(movie.status))
+        categorySpinner.setSelection(categoryMap.values.indexOf(movie.category))
+        releaseDateText.text = movie.releaseDate.toString()
+        selectedReleaseDate = movie.releaseDate
+        ratingBar.rating = (movie.rating ?: 0).toFloat()
+        selectedPosterUri = movie.posterUri
+        posterImage.setImageURI(movie.posterUri)
+    }
+
+    private fun openGallery() {
+        val permission = Manifest.permission.READ_MEDIA_IMAGES
+        when {
+            ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED -> {
+                imagePickerLauncher.launch("image/*")
+            }
+
+            ActivityCompat.shouldShowRequestPermissionRationale(this, permission) -> {
+                Toast.makeText(this, "Permission needed to pick an image", Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(permission)
+            }
+
+            else -> {
+                requestPermissionLauncher.launch(permission)
+            }
+        }
+    }
+
     private fun handleSave() {
         val title = titleInput.text.toString()
         val selectedStatus = statusMap[statusSpinner.selectedItem.toString()] ?: Status.NONE
         val selectedCategory = categoryMap[categorySpinner.selectedItem.toString()] ?: Category.NONE
         val releaseDate = selectedReleaseDate ?: LocalDate.now()
-        val rating = if (selectedStatus == Status.WATCHED) ratingBar.rating.toInt() else null
+        val rating = if (selectedStatus == Status.WATCHED) ratingBar.rating else null
 
         val dto = MovieDto(
             id = if (isEditMode) movieId else null,
@@ -170,20 +222,4 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK).apply { type = "image/*" }
-        startActivityForResult(intent, REQUEST_IMAGE_PICK)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-         try {
-        val source = ImageDecoder.createSource(contentResolver, selectedPosterUri!!)
-        val bitmap = ImageDecoder.decodeBitmap(source)
-        posterImage.setImageBitmap(bitmap)
-    } catch (e: Exception) {
-        Log.e("ImageLoad", "Failed to load image: ${e.message}")
-        Toast.makeText(this, R.string.image_load_failed, Toast.LENGTH_SHORT).show()
-    }
-    }
 }
