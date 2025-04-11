@@ -23,6 +23,7 @@ import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import java.time.LocalDate
 import android.Manifest
+import android.content.Intent
 import android.view.View
 
 
@@ -45,23 +46,6 @@ class AddEditMovieActivity : AppCompatActivity() {
     private var selectedPosterUri: Uri? = null
     private var selectedReleaseDate: LocalDate? = null
     private var isRestoringForm = false
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                openGallery()
-            } else {
-                Toast.makeText(this, "Permission denied to access images", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    private val imagePickerLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                selectedPosterUri = it
-                posterImage.setImageURI(it)
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +87,10 @@ class AddEditMovieActivity : AppCompatActivity() {
 
         saveButton.setOnClickListener { handleSave() }
 
-        posterImage.setOnClickListener { openGallery() }
+        posterImage.setOnClickListener {
+            openGallery()
+        }
+
     }
 
 
@@ -170,22 +157,27 @@ class AddEditMovieActivity : AppCompatActivity() {
     }
 
     private fun openGallery() {
-        val permission = Manifest.permission.READ_MEDIA_IMAGES
-        when {
-            ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED -> {
-                imagePickerLauncher.launch("image/*")
-            }
+        imagePickerLauncher.launch(arrayOf("image/*"))
+    }
 
-            ActivityCompat.shouldShowRequestPermissionRationale(this, permission) -> {
-                Toast.makeText(this, "Permission needed to pick an image", Toast.LENGTH_SHORT).show()
-                requestPermissionLauncher.launch(permission)
-            }
 
-            else -> {
-                requestPermissionLauncher.launch(permission)
+    private val imagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+            uri?.let {
+                try {
+                    contentResolver.takePersistableUriPermission(
+                        it,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                } catch (e: SecurityException) {
+                    Log.e("ImagePicker", "Failed to persist permission", e)
+                }
+
+                selectedPosterUri = it
+                posterImage.setImageURI(it)
             }
         }
-    }
+
 
     private fun handleSave() {
         val title = titleInput.text.toString()
