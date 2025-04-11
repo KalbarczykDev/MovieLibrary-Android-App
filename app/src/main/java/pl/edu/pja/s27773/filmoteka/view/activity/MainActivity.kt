@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         statusSpinner = findViewById(R.id.status_spinner)
         movieRecyclerView = findViewById(R.id.movie_list)
         summaryTextView = findViewById(R.id.summary_text)
-        filterCard = findViewById(R.id.add_movie_card)
+        filterCard = findViewById(R.id.filters_card)
         filterToggleButton = findViewById(R.id.filter_toggle_button)
 
         filterCard.visibility = View.GONE

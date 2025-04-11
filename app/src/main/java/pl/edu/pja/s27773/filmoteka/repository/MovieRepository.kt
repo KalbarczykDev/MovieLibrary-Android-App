@@ -18,7 +18,7 @@ object MovieRepository {
     }
 
     fun add(movie: Movie) {
-        if (movies.any { it.id == movie.id }) throw AppErrorException(MovieCrudError.NotFound)
+        if (movies.any { it.id == movie.id }) throw AppErrorException(MovieCrudError.IdTaken)
         movies.add(movie)
     }
 

@@ -1,12 +1,14 @@
 package pl.edu.pja.s27773.filmoteka.service
 
-import android.util.Log
+import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.repository.MovieRepository
 import pl.edu.pja.s27773.filmoteka.mapper.toDomain
 import pl.edu.pja.s27773.filmoteka.mapper.toDto
+import pl.edu.pja.s27773.filmoteka.model.Category
 import pl.edu.pja.s27773.filmoteka.model.Id
+import pl.edu.pja.s27773.filmoteka.model.Status
 
 object MovieService {
     fun getAll(): List<MovieDto> {
@@ -21,15 +23,32 @@ object MovieService {
     }
 
     fun add(dto: MovieDto) {
+
+        if (dto.category == Category.NONE) {
+            throw AppErrorException(MovieCrudError.CategoryNotSelected)
+        }
+
+        if (dto.status == Status.NONE) {
+            throw AppErrorException(MovieCrudError.StatusNotSelected)
+        }
+
         MovieRepository.add(dto.toDomain())
     }
 
-    fun delete(dto: MovieDto){
-         MovieRepository.delete(dto.toDomain())
+    fun delete(dto: MovieDto) {
+        MovieRepository.delete(dto.toDomain())
     }
 
     fun update(dto: MovieDto) {
-         MovieRepository.update(dto.toDomain())
+        if (dto.category == Category.NONE) {
+            throw AppErrorException(MovieCrudError.CategoryNotSelected)
+        }
+
+        if (dto.status == Status.NONE) {
+            throw AppErrorException(MovieCrudError.StatusNotSelected)
+        }
+
+        MovieRepository.update(dto.toDomain())
     }
 
 }
