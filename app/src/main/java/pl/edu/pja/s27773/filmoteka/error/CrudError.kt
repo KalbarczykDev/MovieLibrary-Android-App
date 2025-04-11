@@ -1,6 +1,10 @@
 package pl.edu.pja.s27773.filmoteka.error
 
-enum class MovieCrudError(override val stringResKey: String) : AppError {
-    ID_TAKEN("error_movie_id_taken"),
-    NOT_FOUND("error_movie_not_found"),
+sealed class MovieCrudError(
+    override val stringResKey: String,
+    val debugMessage: String
+) : AppError {
+
+    object IdTaken : MovieCrudError("error_movie_id_taken", "Movie ID is already taken")
+    object NotFound : MovieCrudError("error_movie_not_found", "Movie not found")
 }

@@ -1,6 +1,7 @@
 package pl.edu.pja.s27773.filmoteka.repository
 
 import android.util.Log
+import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.*
 
@@ -17,7 +18,7 @@ object MovieRepository {
     }
 
     fun add(movie: Movie) {
-        if (movies.any { it.id == movie.id }) throw IllegalArgumentException(MovieCrudError.ID_TAKEN.stringResKey)
+        if (movies.any { it.id == movie.id }) throw AppErrorException(MovieCrudError.NotFound)
         movies.add(movie)
     }
 
@@ -29,7 +30,7 @@ object MovieRepository {
     fun update(updated: Movie) {
         val index = movies.indexOfFirst { it.id == updated.id }
         if (index == -1) {
-            throw IllegalArgumentException(MovieCrudError.NOT_FOUND.stringResKey)
+            throw AppErrorException(MovieCrudError.NotFound)
         } else {
             movies[index] = updated
         }
@@ -37,7 +38,7 @@ object MovieRepository {
 
     fun delete(movie: Movie) {
         val removed = movies.removeIf { it.id == movie.id }
-        if (!removed) throw IllegalArgumentException(MovieCrudError.NOT_FOUND.stringResKey)
+        if (!removed) throw AppErrorException(MovieCrudError.NotFound)
     }
 
     fun clear() {

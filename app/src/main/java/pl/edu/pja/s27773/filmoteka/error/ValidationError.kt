@@ -1,27 +1,48 @@
 package pl.edu.pja.s27773.filmoteka.error
 
 
-enum class TitleError(override val stringResKey: String) : AppError {
-    BLANK("error_title_blank"),
-    TOO_LONG("error_title_to_long")
+sealed class TitleError(
+    override val stringResKey: String,
+    val debugMessage: String
+) : AppError {
+
+    data object Blank : TitleError("error_title_blank", "Title is blank")
+    data object TooLong : TitleError("error_title_too_long", "Title exceeds max length")
 }
 
-enum class RatingError(override val stringResKey: String) : AppError {
-    INVALID("error_rating_invalid"),
-    MISSING_FOR_WATCHED("error_rating_required")
+
+sealed class RatingError(
+    override val stringResKey: String,
+    val debugMessage: String
+) : AppError {
+
+    data object Invalid : RatingError("error_rating_invalid", "Rating value is invalid")
+    data object MissingForWatched : RatingError("error_rating_required", "Rating is required for watched movies")
 }
 
-enum class CommentError(override val stringResKey: String) :
-    AppError {
-    TOO_LONG("error_comment_too_long"),
-    BLANK("error_comment_blank")
+
+sealed class CommentError(
+    override val stringResKey: String,
+    val debugMessage: String
+) : AppError {
+
+    data object TooLong : CommentError("error_comment_too_long", "Comment exceeds character limit")
+    data object Blank : CommentError("error_comment_blank", "Comment is blank")
 }
 
-enum class IdError(override val stringResKey: String) : AppError {
-    INVALID("error_id_invalid")
+sealed class IdError(
+    override val stringResKey: String,
+    val debugMessage: String
+) : AppError {
+
+    data object Invalid : IdError("error_id_invalid", "ID is not valid")
 }
 
-enum class ReleaseDateError(override val stringResKey: String) :
-    AppError {
-    RELEASE_DATE_FUTURE("error_release_date_future")
+
+sealed class ReleaseDateError(
+    override val stringResKey: String,
+    val debugMessage: String
+) : AppError {
+
+    data object FutureReleaseDate : ReleaseDateError("error_release_date_future", "Release date is in the future")
 }

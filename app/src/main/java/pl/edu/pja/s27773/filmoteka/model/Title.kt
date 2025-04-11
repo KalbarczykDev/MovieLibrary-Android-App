@@ -1,22 +1,19 @@
 package pl.edu.pja.s27773.filmoteka.model
 
+import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.TitleError
-import pl.edu.pja.s27773.filmoteka.error.AppError
 
 @JvmInline
 value class Title private constructor(val value: String) {
     companion object {
-        private fun validate(value: String): TitleError? {
-            return when {
-                value.isBlank() -> TitleError.BLANK
-                value.length > 255 -> TitleError.TOO_LONG
-                else -> null
-            }
+        private fun validate(value: String) {
+            if (value.isBlank()) throw throw AppErrorException(TitleError.Blank)
+            if(value.length > 255) throw AppErrorException(TitleError.TooLong)
+
         }
 
         fun of(value: String): Title {
-            val error = validate(value)
-            require(error == null) { error?.stringResKey ?: AppError.DEFAULT }
+            validate(value)
             return Title(value.trim())
         }
     }

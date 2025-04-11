@@ -1,16 +1,23 @@
 package pl.edu.pja.s27773.filmoteka.view.activity
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import pl.edu.pja.s27773.filmoteka.R
+import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.model.*
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
@@ -20,6 +27,12 @@ class AddEditMovieActivity : AppCompatActivity() {
 
     private lateinit var categorySpinner: Spinner
     private lateinit var statusSpinner: Spinner
+    private lateinit var titleInput: TextInputEditText
+    private lateinit var saveButton: MaterialButton
+    private lateinit var releaseDateText: TextView
+    private lateinit var ratingBar: RatingBar
+    private lateinit var posterImage: ImageView
+    private lateinit var backButton: ImageView
 
     private lateinit var categoryMap: Map<String, Category>
     private lateinit var statusMap: Map<String, Status>
@@ -28,10 +41,9 @@ class AddEditMovieActivity : AppCompatActivity() {
     private var movieId: Int? = null
     private var currentMovie: MovieDto? = null
     private var selectedPosterUri: Uri? = null
-
     private var selectedReleaseDate: LocalDate? = null
-    private val REQUEST_IMAGE_PICK = 1001
 
+    private val REQUEST_IMAGE_PICK = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,17 +73,21 @@ class AddEditMovieActivity : AppCompatActivity() {
     private fun initViews() {
         categorySpinner = findViewById(R.id.category_spinner)
         statusSpinner = findViewById(R.id.status_spinner)
+        titleInput = findViewById(R.id.title_input)
+        saveButton = findViewById(R.id.save_button)
+        releaseDateText = findViewById(R.id.release_date_text)
+        ratingBar = findViewById(R.id.movie_rating)
+        posterImage = findViewById(R.id.poster_image)
 
-
-        findViewById<ImageView>(R.id.back_button).setOnClickListener {
+        findViewById<MaterialToolbar>(R.id.top).setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        findViewById<Button>(R.id.save_button).setOnClickListener {
+        saveButton.setOnClickListener {
             handleSave()
         }
 
-        findViewById<ImageView>(R.id.poster_image).setOnClickListener {
+        posterImage.setOnClickListener {
             openGallery()
         }
     }
@@ -104,23 +120,26 @@ class AddEditMovieActivity : AppCompatActivity() {
     }
 
     private fun fillFormWithMovie(movie: MovieDto) {
-        findViewById<EditText>(R.id.title_input).setText(movie.title)
+        titleInput.setText(movie.title)
         statusSpinner.setSelection(statusMap.values.indexOf(movie.status))
         categorySpinner.setSelection(categoryMap.values.indexOf(movie.category))
+        releaseDateText.text = movie.releaseDate.toString()
+        selectedReleaseDate = movie.releaseDate
+        ratingBar.rating = (movie.rating ?: 0).toFloat()
+        selectedPosterUri = movie.posterUri
+        posterImage.setImageURI(movie.posterUri)
     }
 
-
     private fun setupDatePicker() {
-        val dateText = findViewById<TextView>(R.id.release_date_text)
         val today = LocalDate.now()
         var selectedDate = today
 
-        dateText.setOnClickListener {
+        releaseDateText.setOnClickListener {
             val datePicker = DatePickerDialog(
                 this,
                 { _, year, month, dayOfMonth ->
                     selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
-                    dateText.text = selectedDate.toString()
+                    releaseDateText.text = selectedDate.toString()
                     selectedReleaseDate = selectedDate
                 },
                 today.year,
@@ -128,7 +147,6 @@ class AddEditMovieActivity : AppCompatActivity() {
                 today.dayOfMonth
             )
 
-            // Set max date to 2 years from now
             val calendar = Calendar.getInstance().apply {
                 add(Calendar.YEAR, 2)
             }
@@ -138,17 +156,13 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
     }
 
-
+    @SuppressLint("DiscouragedApi")
     private fun handleSave() {
-        val title = findViewById<EditText>(R.id.title_input).text.toString()
+        val title = titleInput.text.toString()
         val selectedStatus = statusMap[statusSpinner.selectedItem.toString()] ?: Status.NONE
         val selectedCategory = categoryMap[categorySpinner.selectedItem.toString()] ?: Category.NONE
         val releaseDate = selectedReleaseDate ?: LocalDate.now()
-        val rating = if (selectedStatus == Status.WATCHED) {
-            findViewById<RatingBar>(R.id.rating_bar).rating.toInt()
-        } else null
-
-        val posterUri = selectedPosterUri
+        val rating = if (selectedStatus == Status.WATCHED) ratingBar.rating.toInt() else null
 
         val dto = MovieDto(
             id = if (isEditMode) movieId else null,
@@ -157,7 +171,7 @@ class AddEditMovieActivity : AppCompatActivity() {
             category = selectedCategory,
             status = selectedStatus,
             rating = rating,
-            posterUri = posterUri
+            posterUri = selectedPosterUri
         )
 
         try {
@@ -170,13 +184,14 @@ class AddEditMovieActivity : AppCompatActivity() {
             }
             setResult(RESULT_OK)
             finish()
-        } catch (e: Exception) {
-            val errorKey = e.message ?: getString(R.string.unknown_error)
+        } catch (e: AppErrorException) {
+            val errorKey = e.message
             val errorMsg = getString(resources.getIdentifier(errorKey, "string", packageName))
             Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Log.e("AddEditMovieActivity", e.message.toString())
         }
     }
-
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -188,9 +203,7 @@ class AddEditMovieActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
             selectedPosterUri = data?.data
-            findViewById<ImageView>(R.id.poster_image).setImageURI(selectedPosterUri)
+            posterImage.setImageURI(selectedPosterUri)
         }
     }
-
-
 }
