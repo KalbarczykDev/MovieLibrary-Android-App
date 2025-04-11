@@ -40,16 +40,6 @@ object MovieRepository {
         if (!removed) throw IllegalArgumentException(MovieCrudError.NOT_FOUND.stringResKey)
     }
 
-    fun addAll(newMovies: List<Movie>) {
-    newMovies.forEach {
-        try {
-            add(it)
-        } catch (e: IllegalArgumentException) {
-            Log.e("MovieRepository", "Error adding movie: ${e.message}")
-        }
-    }
-}
-
     fun clear() {
         movies.clear()
     }

@@ -118,7 +118,9 @@ object MovieSeeder {
                 ),
             )
 
-            MovieRepository.addAll(movies)
+            for (movie in movies) {
+                MovieRepository.add(movie)
+            }
 
         } catch (e: Exception) {
             println("Error seeding movies: ${e.message}")
