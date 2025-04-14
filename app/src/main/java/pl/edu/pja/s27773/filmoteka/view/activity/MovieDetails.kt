@@ -14,6 +14,11 @@ import pl.edu.pja.s27773.filmoteka.R
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 
+/**
+ * Activity that displays detailed information about a selected movie.
+ *
+ * This screen is read-only and does not allow editing.
+ */
 class MovieDetails : AppCompatActivity() {
 
     private lateinit var categoryTextView: TextView
@@ -27,6 +32,15 @@ class MovieDetails : AppCompatActivity() {
     private var movieId: Int? = null
     private var currentMovie: MovieDto? = null
 
+    /**
+     * Called when the activity is starting.
+     *
+     * Initializes layout, applies window insets, retrieves the movie ID from the intent,
+     * and displays movie details if available.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down,
+     * this Bundle contains the most recent data. Otherwise, it is null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,6 +55,9 @@ class MovieDetails : AppCompatActivity() {
         }
     }
 
+    /**
+     * Applies system window insets to the root view to handle edge-to-edge layout properly.
+     */
     private fun applySystemInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -49,6 +66,10 @@ class MovieDetails : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes all UI components used to display the movie details.
+     * Also sets up the back button click handler.
+     */
     private fun initViews() {
         categoryTextView = findViewById(R.id.category_value)
         statusTextView = findViewById(R.id.status_value)
@@ -66,7 +87,11 @@ class MovieDetails : AppCompatActivity() {
 
     }
 
-
+    /**
+     * Fills the UI elements with data from the provided [movie] object.
+     *
+     * @param movie The [MovieDto] object containing details to be displayed.
+     */
     private fun fillFormWithMovie(movie: MovieDto) {
         titleInput.text = movie.title
         statusTextView.text = movie.status.name

@@ -23,7 +23,12 @@ import android.content.Intent
 import android.view.View
 import pl.edu.pja.s27773.filmoteka.error.DefaultAppError
 
-
+/**
+ * Activity responsible for adding a new movie or editing an existing one.
+ *
+ * Allows the user to input movie details including title, category, status, rating,
+ * release date, and poster image.
+ */
 class AddEditMovieActivity : AppCompatActivity() {
 
     private lateinit var categorySpinner: Spinner
@@ -44,6 +49,14 @@ class AddEditMovieActivity : AppCompatActivity() {
     private var selectedReleaseDate: LocalDate? = null
     private var isRestoringForm = false
 
+    /**
+     * Called when the activity is created.
+     *
+     * Sets up views, spinners, date picker, and determines whether the screen is in
+     * "add" or "edit" mode based on the provided intent.
+     *
+     * @param savedInstanceState Previously saved instance state or null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -61,6 +74,9 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Applies system window insets to the root layout to support edge-to-edge UI.
+     */
     private fun applySystemInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -69,6 +85,9 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes all view components, such as input fields, spinners, buttons, and listeners.
+     */
     private fun initViews() {
         categorySpinner = findViewById(R.id.category_spinner)
         statusSpinner = findViewById(R.id.status_spinner)
@@ -91,6 +110,10 @@ class AddEditMovieActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Configures spinners for selecting movie category and status,
+     * and sets up rating bar behavior based on the selected status.
+     */
     private fun setupSpinners() {
         categoryMap = mapOf(
             getString(R.string.category_movie) to MovieCategory.MOVIE,
@@ -120,6 +143,10 @@ class AddEditMovieActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Configures the release date picker and updates the view
+     * and internal state upon date selection.
+     */
     private fun setupDatePicker() {
         val today = LocalDate.now()
         releaseDateText.setOnClickListener {
@@ -140,6 +167,13 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Fills the form with data from the provided movie.
+     *
+     * This is used in "edit" mode to prepopulate form fields.
+     *
+     * @param movie The movie to display in the form.
+     */
     private fun fillFormWithMovie(movie: MovieDto) {
         isRestoringForm = true
         titleInput.setText(movie.title)
@@ -153,11 +187,17 @@ class AddEditMovieActivity : AppCompatActivity() {
         isRestoringForm = false
     }
 
+    /**
+     * Launches a system file picker to allow the user to select an image from storage.
+     */
     private fun openGallery() {
         imagePickerLauncher.launch(arrayOf("image/*"))
     }
 
 
+    /**
+     * Result handler for the image picker. Stores the URI and displays the image.
+     */
     private val imagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
             uri?.let {
@@ -176,6 +216,12 @@ class AddEditMovieActivity : AppCompatActivity() {
         }
 
 
+    /**
+     * Handles validation and saving of movie data.
+     *
+     * Adds or updates the movie using [MovieService] depending on the mode.
+     * Displays success or error messages based on the outcome.
+     */
     private fun handleSave() {
         val title = titleInput.text.toString()
         val selectedStatus = statusMap[statusSpinner.selectedItem.toString()] ?: MovieStatus.NONE

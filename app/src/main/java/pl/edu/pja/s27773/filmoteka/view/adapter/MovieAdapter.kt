@@ -12,13 +12,33 @@ import pl.edu.pja.s27773.filmoteka.R
 import pl.edu.pja.s27773.filmoteka.model.MovieStatus
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 
+/**
+ * RecyclerView adapter for displaying a list of movies.
+ *
+ * Supports click and long-click interactions and efficiently updates its content using [DiffUtil].
+ *
+ * @property movies The list of movies to display.
+ */
 class MovieAdapter(
     private var movies: List<MovieDto>
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
+    /**
+     * Callback invoked when a movie item is long-pressed.
+     */
     var onLongClick: ((MovieDto) -> Unit)? = null
+
+    /**
+     * Callback invoked when a movie item is tapped.
+     */
     var onClick: ((MovieDto) -> Unit)? = null
 
+    /**
+     * ViewHolder for movie items.
+     *
+     * Holds references to views for displaying movie attributes and
+     * handles click/long-click interactions.
+     */
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.movie_title)
         val date: TextView = view.findViewById(R.id.movie_date)
@@ -37,12 +57,21 @@ class MovieAdapter(
         }
     }
 
+    /**
+     * Inflates the layout for an individual movie item.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
         return MovieViewHolder(view)
     }
 
+    /**
+     * Binds movie data to the ViewHolder.
+     *
+     * @param holder The holder to bind data to.
+     * @param position The position of the item in the data set.
+     */
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
         val context = holder.itemView.context
@@ -83,9 +112,17 @@ class MovieAdapter(
         }
     }
 
+    /**
+     * Returns the number of items in the list.
+     */
     override fun getItemCount(): Int = movies.size
 
 
+    /**
+     * Updates the adapter's dataset and uses [DiffUtil] to efficiently notify changes.
+     *
+     * @param newMovies The new list of movies to display.
+     */
     fun updateData(newMovies: List<MovieDto>) {
         val diffCallback = MovieDiffCallback(movies, newMovies)
         val diffResult = DiffUtil.calculateDiff(diffCallback)

@@ -5,8 +5,22 @@ import pl.edu.pja.s27773.filmoteka.model.*
 import pl.edu.pja.s27773.filmoteka.repository.MovieRepository
 import java.time.LocalDate
 
+/**
+ * Seeds the application with predefined movie data.
+ *
+ * This utility class is typically used to populate the in-memory repository
+ * with a list of sample movies for testing or demonstration purposes.
+ */
 object MovieSeeder {
 
+    /**
+     * Clears the current movie repository and adds a predefined set of movies.
+     *
+     * Each movie is assigned a unique ID and includes metadata such as title, release date,
+     * category, status, rating, and poster image URI.
+     *
+     * Errors during seeding are caught and logged to the console.
+     */
     fun seed() {
         MovieRepository.clear()
 

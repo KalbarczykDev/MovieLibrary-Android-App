@@ -23,6 +23,12 @@ import pl.edu.pja.s27773.filmoteka.model.MovieStatus
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import pl.edu.pja.s27773.filmoteka.view.adapter.MovieAdapter
 
+/**
+ * Main screen of the application displaying the list of movies.
+ *
+ * Allows users to filter movies by category and status, view movie details,
+ * and add or delete movies.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var categorySpinner: Spinner
@@ -40,7 +46,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var statusMap: Map<String, MovieStatus>
     private lateinit var addMovieLauncher: ActivityResultLauncher<Intent>
 
-
+    /**
+     * Called when the activity is starting.
+     *
+     * Sets up the layout, initializes UI components, registers activity result launcher,
+     * and applies filtering logic on the movie list.
+     *
+     * @param savedInstanceState Bundle with the activity's previously saved state or null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -64,6 +77,9 @@ class MainActivity : AppCompatActivity() {
         filterMovies()
     }
 
+    /**
+     * Applies system window insets to the root layout for edge-to-edge display.
+     */
     private fun applySystemInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -72,6 +88,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes views used in the activity such as spinners, recycler view, and filter card.
+     */
     private fun initViews() {
         categorySpinner = findViewById(R.id.category_spinner)
         statusSpinner = findViewById(R.id.status_spinner)
@@ -84,6 +103,9 @@ class MainActivity : AppCompatActivity() {
         filterToggleButton.rotation = 0f
     }
 
+    /**
+     * Sets up the toggle button behavior for showing or hiding filter controls.
+     */
     private fun setupToggleFilters() {
         filterToggleButton.setOnClickListener {
             filtersVisible = !filtersVisible
@@ -93,6 +115,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Populates the category and status spinners with predefined values and maps them to enums.
+     */
     private fun setupSpinners() {
         categoryMap = mapOf(
             getString(R.string.category_all) to MovieCategory.NONE,
@@ -120,6 +145,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Attaches listeners to spinners to trigger movie list filtering on selection changes.
+     */
+
     private fun setupSpinnerListeners() {
         val listener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -133,6 +162,12 @@ class MainActivity : AppCompatActivity() {
         statusSpinner.onItemSelectedListener = listener
     }
 
+    /**
+     * Sets up the movie list recycler view with its adapter and click/long-click actions.
+     *
+     * - Click: navigates to details or edit view depending on status.
+     * - Long click: prompts the user to confirm movie deletion.
+     */
     private fun setupRecyclerView() {
         movieAdapter = MovieAdapter(MovieService.getAll())
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -180,6 +215,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Filters the movie list based on selected category and status from spinners.
+     * Updates the recycler view and summary text accordingly.
+     */
     private fun filterMovies() {
         val selectedCategory = categoryMap[categorySpinner.selectedItem as String] ?: MovieCategory.NONE
         val selectedStatus = statusMap[statusSpinner.selectedItem as String] ?: MovieStatus.NONE
@@ -194,6 +233,9 @@ class MainActivity : AppCompatActivity() {
         summaryTextView.text = getString(R.string.summary_placeholder, filteredMovies.size)
     }
 
+    /**
+     * Sets up the "Add Movie" button and its click listener.
+     */
     private fun setUpButtons() {
         addMovieButton = findViewById(R.id.add_button)
         addMovieButton.setOnClickListener {
@@ -201,6 +243,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Handles the logic for launching the activity to add a new movie.
+     */
     private fun onAddMovieClick() {
         val intent = Intent(this, AddEditMovieActivity::class.java)
         addMovieLauncher.launch(intent)
