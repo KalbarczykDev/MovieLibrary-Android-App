@@ -153,8 +153,16 @@ class MainActivity : AppCompatActivity() {
         movieAdapter.onClick = { movie ->
 
             if (movie.status == MovieStatus.WATCHED) {
-                Toast.makeText(this, "${getString(R.string.already_watched)}: ${movie.title} ", Toast.LENGTH_SHORT)
-                    .show()
+                movie.id?.let { movieId ->
+                    val intent = Intent(
+                        this,
+                        MovieDetails::class.java
+                    )
+                    intent.putExtra("movie_id", movieId.toLong())
+                    addMovieLauncher.launch(intent)
+                } ?: run {
+                    Toast.makeText(this, R.string.unknown_error, Toast.LENGTH_SHORT).show()
+                }
             } else {
                 movie.id?.let { movieId ->
                     val intent = Intent(
@@ -163,6 +171,8 @@ class MainActivity : AppCompatActivity() {
                     )
                     intent.putExtra("movie_id", movieId.toLong())
                     addMovieLauncher.launch(intent)
+                } ?: run {
+                    Toast.makeText(this, R.string.unknown_error, Toast.LENGTH_SHORT).show()
                 }
             }
         }
