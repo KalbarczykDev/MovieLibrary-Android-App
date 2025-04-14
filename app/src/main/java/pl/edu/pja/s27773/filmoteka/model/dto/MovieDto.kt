@@ -6,11 +6,11 @@ import pl.edu.pja.s27773.filmoteka.model.MovieStatus
 import java.time.LocalDate
 
 data class MovieDto (
-    val id: Int?, // null if new
+    val id: Int?,
     val title: String,
     val releaseDate: LocalDate,
     val category: MovieCategory,
     val status: MovieStatus,
-    val rating: Float?, // nullable for NOT_WATCHED
+    val rating: Float?,
     val posterUri: Uri?
 )

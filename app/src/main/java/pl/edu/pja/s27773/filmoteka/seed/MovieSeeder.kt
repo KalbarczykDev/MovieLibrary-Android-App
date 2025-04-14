@@ -10,7 +10,7 @@ object MovieSeeder {
     fun seed() {
         MovieRepository.clear()
 
-        var idCounter = 1;
+        var idCounter = 1
         fun nextSeedId() = MovieId.of(idCounter++)
         val packageName = "pl.edu.pja.s27773.filmoteka"
 

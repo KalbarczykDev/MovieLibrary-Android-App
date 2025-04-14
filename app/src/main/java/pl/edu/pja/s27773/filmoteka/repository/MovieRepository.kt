@@ -4,15 +4,14 @@ import android.util.Log
 import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 import pl.edu.pja.s27773.filmoteka.error.MovieCrudError
 import pl.edu.pja.s27773.filmoteka.model.*
-import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 
-//sugar code dla  singletona
+
 object MovieRepository {
     private val movies = mutableListOf<Movie>()
 
     fun getAll(): List<Movie> {
         return movies.toList()
-    } //immutable list
+    }
 
     fun getById(id: MovieId): Movie? {
         return movies.find { it.id == id }

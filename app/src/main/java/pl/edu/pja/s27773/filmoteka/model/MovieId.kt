@@ -3,7 +3,7 @@ package pl.edu.pja.s27773.filmoteka.model
 import pl.edu.pja.s27773.filmoteka.error.IdError
 import pl.edu.pja.s27773.filmoteka.error.AppErrorException
 
-//optymalizacja dla wrapperów
+
 @JvmInline
 value class MovieId private constructor(val value: Int) {
     companion object {

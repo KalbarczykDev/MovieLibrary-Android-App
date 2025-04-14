@@ -1,7 +1,6 @@
 package pl.edu.pja.s27773.filmoteka.view.activity
 
 import android.app.DatePickerDialog
-import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
@@ -11,8 +10,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatRatingBar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,9 +19,9 @@ import pl.edu.pja.s27773.filmoteka.model.*
 import pl.edu.pja.s27773.filmoteka.model.dto.MovieDto
 import pl.edu.pja.s27773.filmoteka.service.MovieService
 import java.time.LocalDate
-import android.Manifest
 import android.content.Intent
 import android.view.View
+import pl.edu.pja.s27773.filmoteka.error.DefaultAppError
 
 
 class AddEditMovieActivity : AppCompatActivity() {
@@ -215,11 +212,15 @@ class AddEditMovieActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         } catch (e: AppErrorException) {
-            val errorKey = e.message
-            val errorMsg = getString(resources.getIdentifier(errorKey, "string", packageName))
-            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+            Log.e("AddEditMovieActivity", e.message)
+
+            Toast.makeText(this, getString(e.stringResKey), Toast.LENGTH_LONG).show()
+
         } catch (e: Exception) {
-            Log.e("AddEditMovieActivity", "Unexpected error: ${e.message}", e)
+            Log.e("AddEditMovieActivity", e.message.toString())
+            val message = DefaultAppError.Default
+
+            Toast.makeText(this, getString(message.stringResKey), Toast.LENGTH_LONG).show()
         }
     }
 

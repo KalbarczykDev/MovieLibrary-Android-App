@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.annotation.StringRes
 import pl.edu.pja.s27773.filmoteka.R
 
-// data class = javowy record?
+
 data class Movie(
     val id: MovieId,
     var title: MovieTitle,

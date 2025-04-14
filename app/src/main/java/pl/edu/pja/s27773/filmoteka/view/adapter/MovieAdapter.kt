@@ -1,12 +1,12 @@
 package pl.edu.pja.s27773.filmoteka.view.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.edu.pja.s27773.filmoteka.R
 import pl.edu.pja.s27773.filmoteka.model.MovieStatus
@@ -43,7 +43,6 @@ class MovieAdapter(
         return MovieViewHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
         val context = holder.itemView.context
@@ -86,9 +85,13 @@ class MovieAdapter(
 
     override fun getItemCount(): Int = movies.size
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun updateData(newMovies: List<MovieDto>) {
+        val diffCallback = MovieDiffCallback(movies, newMovies)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         movies = newMovies
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
+
 }
